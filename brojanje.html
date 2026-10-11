@@ -20,6 +20,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 header{position:sticky;top:0;z-index:5;background:#1B2A4A;color:#fff;border-bottom:3px solid var(--or);padding:10px 14px;display:flex;align-items:center;gap:10px}
 header h1{font-size:18px;margin:0;flex:1}header h1 i{font-style:normal;color:var(--or2)}
+@media (max-width:430px){header{gap:6px;padding:10px}header h1{font-size:15px;white-space:nowrap}header button{padding:6px 8px;font-size:13px}}
 header button{background:rgba(255,255,255,.18);color:inherit;border:0;border-radius:6px;padding:7px 11px;font-size:14px}
 main{max-width:640px;margin:0 auto;padding:12px 12px 90px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
@@ -58,7 +59,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;b
 </style>
 </head>
 <body>
-<header><svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><rect width="30" height="30" aria-hidden="true" rx="14" fill="#1B2A4A"/><g fill="#fff"><rect x="14" y="17" width="4" height="30"/><rect x="21" y="17" width="2" height="30"/><rect x="26" y="17" width="6" height="30"/><rect x="35" y="17" width="2" height="30"/><rect x="40" y="17" width="4" height="30"/></g><circle cx="44" cy="43" r="12.5" fill="#1B2A4A"/><circle cx="44" cy="43" r="10.5" fill="#E55A00"/><path d="M38.5 43.5l4 4 7.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h1>Stanko <i>Inventura</i></h1><button id="hExp" class="hide">Izvoz</button><button id="hMenu">⋯</button></header>
+<header><svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><rect width="30" height="30" aria-hidden="true" rx="14" fill="#1B2A4A"/><g fill="#fff"><rect x="14" y="17" width="4" height="30"/><rect x="21" y="17" width="2" height="30"/><rect x="26" y="17" width="6" height="30"/><rect x="35" y="17" width="2" height="30"/><rect x="40" y="17" width="4" height="30"/></g><circle cx="44" cy="43" r="12.5" fill="#1B2A4A"/><circle cx="44" cy="43" r="10.5" fill="#E55A00"/><path d="M38.5 43.5l4 4 7.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h1>Stanko <i>Inventura</i></h1><button id="hRep" class="hide">Izvještaj</button><button id="hExp" class="hide">Izvoz</button><button id="hMenu">⋯</button></header>
 <main>
   <div id="vImport" class="card hide">
     <b>Učitajte godišnji plan</b>
@@ -101,6 +102,14 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;b
   <div><label class="mut">Decimalni znak</label><select id="eDec"><option value=",">zarez 1,5</option><option value=".">točka 1.5</option></select></div></div>
   <div class="row" style="margin-top:12px"><button class="b pri" id="eCsv">Preuzmi CSV</button><button class="b pri" id="eXlsx">Preuzmi Excel</button></div>
   <button class="b" id="eClose" style="width:100%;margin-top:8px">Zatvori</button>
+</div></div>
+
+<div class="modal" id="mReport"><div class="sheet" style="max-height:94vh">
+  <h2>Izvještaj o brojanju</h2><div class="mut" id="rInfo"></div>
+  <div class="seg" id="rSeg"><button data-t="sum" class="on">Sažetak</button><button data-t="item">Po artiklu</button><button data-t="day" id="rDayBtn">Po danima</button></div>
+  <input id="rQ" placeholder="Filtriraj artikl (šifra ili naziv)" class="hide" style="margin-bottom:8px">
+  <div id="rBody" style="overflow:auto;max-height:52vh"></div>
+  <div class="row" style="margin-top:12px"><button class="b pri" id="rXlsx">Preuzmi izvještaj (Excel)</button><button class="b" id="rClose">Zatvori</button></div>
 </div></div>
 
 <div class="modal" id="mMenu"><div class="sheet">
@@ -200,7 +209,7 @@ function defaultDate(ds){
 }
 function init(){
   const has=S.plan.length>0;
-  $('vImport').classList.toggle('hide',has); $('vHome').classList.toggle('hide',!has); $('hExp').classList.toggle('hide',!has);
+  $('vImport').classList.toggle('hide',has); $('vHome').classList.toggle('hide',!has); $('hExp').classList.toggle('hide',!has); $('hRep').classList.toggle('hide',!has);
   if(!has)return;
   const dm=dates(), ds=Object.keys(dm).sort();
   $('dateSel').innerHTML=ds.map(d=>`<option value="${d}">${esc(dlabel(d))} (${dm[d]})</option>`).join('');
@@ -373,6 +382,66 @@ $('eXlsx').onclick=()=>{
   download(new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})],{type:'application/octet-stream'}),fname('xlsx'));
 };
 $('hExp').onclick=openExport; $('eClose').onclick=()=>$('mExport').classList.remove('on');
+
+// ---------- izvještaj ----------
+let repTab='sum';
+const cntOf=r=>S.counts[key(r.d,r.s)];
+function reportData(){
+  const rows=S.plan, done=rows.filter(cntOf), open=rows.filter(r=>!cntOf(r));
+  const byClass={A:{p:0,d:0},B:{p:0,d:0},C:{p:0,d:0}};
+  rows.forEach(r=>{const c=byClass[r.k]||(byClass[r.k]={p:0,d:0});c.p++;if(cntOf(r))c.d++});
+  const dm=new Map(); rows.forEach(r=>{const o=dm.get(r.d)||{r,p:0,d:0};o.p++;if(cntOf(r))o.d++;dm.set(r.d,o)});
+  const im=new Map(); rows.forEach(r=>{const o=im.get(r.s)||{s:r.s,n:r.n,k:r.k,p:0,d:0,bl:0,last:'',lastQty:''};o.p++;const c=cntOf(r);
+    if(c){o.d++;if(!o.last||c.ts>o.last){o.last=c.ts;o.lastQty=c.qty}}else if(isPast(r))o.bl++;im.set(r.s,o)});
+  return {total:rows.length,done:done.length,bl:open.filter(isPast).length,upcoming:open.filter(r=>!isPast(r)).length,extras:S.extras.length,byClass,
+    days:[...dm.values()].sort((a,b)=>a.r.d.localeCompare(b.r.d)),items:[...im.values()]};
+}
+const pct=(a,b)=>!b?'–':(a>0&&Math.round(a/b*100)===0?'<1 %':Math.round(a/b*100)+' %');
+const dloc=ts=>ts?new Date(ts).toLocaleDateString('hr',{day:'2-digit',month:'2-digit',year:'numeric'}):'';
+function renderReport(){
+  const R=reportData(), per=S.plan.some(r=>r.e);
+  $('rInfo').textContent=`${S.file||'plan'} · ${fmtN(S.plan.length)} planiranih brojanja`;
+  $('rDayBtn').textContent=per?'Po tjednima':'Po danima';
+  $('rQ').classList.toggle('hide',repTab!=='item');
+  [...$('rSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.t===repTab));
+  let h='';
+  if(repTab==='sum'){
+    h+=`<table><tr><td>Planirano brojanja (cijeli plan)</td><td><b>${fmtN(R.total)}</b></td></tr>
+    <tr><td>Prebrojano</td><td><b>${fmtN(R.done)}</b> (${pct(R.done,R.total)})</td></tr>
+    <tr><td>Zaostaci (prošli, neprebrojani)</td><td><b${R.bl?' class="var-pos"':''}>${fmtN(R.bl)}</b></td></tr>
+    <tr><td>Još predstoji</td><td><b>${fmtN(R.upcoming)}</b></td></tr>
+    <tr><td>Izvan popisa (bilježeno)</td><td><b>${fmtN(R.extras)}</b></td></tr></table>
+    <h3 style="font-size:15px;margin:14px 0 4px">Po razredu</h3><table><tr><th>Razred</th><th>Planirano</th><th>Prebrojano</th><th>Udio</th></tr>`+
+    Object.keys(R.byClass).sort().filter(k=>R.byClass[k].p).map(k=>`<tr><td><span class="tag ${esc(k)}">${esc(k)}</span></td><td>${fmtN(R.byClass[k].p)}</td><td>${fmtN(R.byClass[k].d)}</td><td>${pct(R.byClass[k].d,R.byClass[k].p)}</td></tr>`).join('')+'</table>';
+  } else if(repTab==='day'){
+    h+=`<table><tr><th>${per?'Tjedan':'Dan'}</th><th>Planirano</th><th>Prebrojano</th><th>Udio</th></tr>`+R.days.map(o=>{const late=isPast(o.r)&&o.d<o.p;return `<tr><td${late?' class="var-pos"':''}>${esc(plabel(o.r))}</td><td>${o.p}</td><td>${o.d}</td><td>${pct(o.d,o.p)}</td></tr>`}).join('')+'</table>';
+  } else {
+    const q=$('rQ').value.trim().toLowerCase();
+    let it=R.items.filter(o=>!q||(o.s+' '+o.n).toLowerCase().includes(q)).sort((a,b)=>b.bl-a.bl||a.s.localeCompare(b.s,'hr',{numeric:true}));
+    const tot=it.length; it=it.slice(0,200);
+    h+=`<table><tr><th>Artikl</th><th>Prebrojano / planirano</th><th>Zaostaje</th><th>Zadnje</th></tr>`+it.map(o=>`<tr><td><span class="tag ${esc(o.k)}">${esc(o.k)}</span> ${esc(o.n||o.s)}<br><span class="mut">${esc(o.s)}</span></td><td><b>${o.d} / ${o.p}</b></td><td${o.bl?' class="var-pos"':''}>${o.bl||''}</td><td>${o.last?esc(dloc(o.last))+'<br><span class="mut">količina '+esc(fmtQ(o.lastQty))+'</span>':'–'}</td></tr>`).join('')+'</table>'+(tot>200?`<p class="mut">Prikazano prvih 200 od ${fmtN(tot)}. Cijeli popis je u Excel izvještaju.</p>`:'');
+  }
+  $('rBody').innerHTML=h;
+}
+const fmtN=n=>Number(n).toLocaleString('hr');
+$('hRep').onclick=()=>{repTab='sum';renderReport();$('mReport').classList.add('on')};
+$('rClose').onclick=()=>$('mReport').classList.remove('on');
+$('rSeg').onclick=e=>{if(e.target.dataset.t){repTab=e.target.dataset.t;renderReport()}};
+$('rQ').oninput=renderReport;
+$('rXlsx').onclick=()=>{
+  const R=reportData(), per=S.plan.some(r=>r.e), wb=XLSX.utils.book_new();
+  const add=(name,rows,w)=>{const ws=XLSX.utils.aoa_to_sheet(rows);ws['!cols']=w.map(x=>({wch:x}));XLSX.utils.book_append_sheet(wb,ws,name)};
+  add('Sažetak',[['Stanko Inventura – izvještaj o brojanju'],['Plan',S.file||''],['Izrađeno',new Date().toLocaleString('hr')],[],
+    ['Planirano brojanja',R.total],['Prebrojano',R.done],['Udio prebrojanog',pct(R.done,R.total)],['Zaostaci (prošli, neprebrojani)',R.bl],['Još predstoji',R.upcoming],['Izvan popisa',R.extras],[],
+    ['Razred','Planirano','Prebrojano','Udio'],...Object.keys(R.byClass).sort().filter(k=>R.byClass[k].p).map(k=>[k,R.byClass[k].p,R.byClass[k].d,pct(R.byClass[k].d,R.byClass[k].p)])],[34,18,14,10]);
+  add('Po artiklu',[['Šifra','Naziv','Klasa','Planirano brojanja','Prebrojano','Zaostaje','Zadnje brojanje','Zadnja količina'],...R.items.sort((a,b)=>a.s.localeCompare(b.s,'hr',{numeric:true})).map(o=>[o.s,o.n,o.k,o.p,o.d,o.bl,o.last?dloc(o.last):'',o.last?o.lastQty:''])],[16,40,7,18,12,10,16,14]);
+  add(per?'Po tjednima':'Po danima',[[per?'Tjedan':'Dan','Planirano','Prebrojano','Udio'],...R.days.map(o=>[plabel(o.r).replace(/\.$/,''),o.p,o.d,pct(o.d,o.p)])],[28,12,12,10]);
+  const all=[['Datum / tjedan','Šifra','Bar kod','Naziv','Klasa','Količina','Napomena','Vrijeme','Status']];
+  S.plan.filter(cntOf).sort((a,b)=>a.d.localeCompare(b.d)).forEach(r=>{const c=cntOf(r);all.push([plabel(r).replace(/\.$/,''),r.s,r.bar,r.n,r.k,c.qty,c.note,c.ts.replace('T',' ').slice(0,19),'PREBROJANO'])});
+  S.extras.forEach(x=>all.push([dlabel(x.d).replace(/\.$/,''),x.s||x.code,x.code,x.n,'',x.qty,x.note,x.ts.replace('T',' ').slice(0,19),'IZVAN POPISA']));
+  add('Sva brojanja',all,[22,16,16,36,7,10,24,20,14]);
+  download(new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})],{type:'application/octet-stream'}),'izvjestaj-brojanje.xlsx');
+};
 
 // ---------- izbornik ----------
 $('hMenu').onclick=()=>{
