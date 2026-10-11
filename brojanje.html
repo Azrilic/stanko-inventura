@@ -175,14 +175,14 @@ $('file').onchange=async()=>{
     const aoa=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:'',raw:true});
     const H=aoa[0].map(norm), col=(...ks)=>{for(const k of ks){const i=H.indexOf(k);if(i>=0)return i}return -1};
     const weekly=sn==='Tjedni raspored', hasDay=weekly&&col('predlozenidan')>=0;
-    const c={d:weekly?(hasDay?col('predlozenidan'):col('od')):col('datum'),e:weekly&&!hasDay?col('do'):-1,w:weekly?col('tjedan'):-1,s:col('sifra'),n:col('naziv'),k:col('klasa'),b:col('brojanje'),bar:col('barkod'),l:col('lokacija')};
+    const c={d:weekly?(hasDay?col('predlozenidan'):col('od')):col('datum'),e:weekly&&!hasDay?col('do'):-1,w:weekly?col('tjedan'):-1,s:col('sifra'),n:col('naziv'),k:col('klasa'),b:col('brojanje'),bar:col('barkod')};
     if(c.d<0||c.s<0) throw new Error('Nedostaje stupac „Datum" ili „Šifra".');
     const plan=[], bad=0;
     for(const r of aoa.slice(1)){
       const sifra=String(r[c.s]??'').trim(); if(!sifra)continue;
       const d=toISO(r[c.d]); if(!d)continue;
       const br=String(r[c.b]??'').split('/');
-      plan.push({d,e:c.e>=0?toISO(r[c.e]):'',w:c.w>=0?String(r[c.w]??''):'',s:sifra,n:c.n>=0?String(r[c.n]??''):'',k:c.k>=0?String(r[c.k]??''):'',i:+br[0]||'',o:+br[1]||'',bar:c.bar>=0?String(r[c.bar]??'').trim():'',l:c.l>=0?String(r[c.l]??'').trim():''});
+      plan.push({d,e:c.e>=0?toISO(r[c.e]):'',w:c.w>=0?String(r[c.w]??''):'',s:sifra,n:c.n>=0?String(r[c.n]??''):'',k:c.k>=0?String(r[c.k]??''):'',i:+br[0]||'',o:+br[1]||'',bar:c.bar>=0?String(r[c.bar]??'').trim():''});
     }
     if(!plan.length) throw new Error('Plan je prazan.');
     S.plan=plan; S.file=f.name; S.date=''; save(); init();
@@ -226,9 +226,9 @@ $('q').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();lookup($('q').value)
 const isPast=r=>(r.e||r.d)<todayISO();
 const backlog=()=>S.plan.filter(r=>isPast(r)&&!S.counts[key(r.d,r.s)]);
 function dayItems(){
-  if(showBL) return backlog().sort((x,y)=>x.d.localeCompare(y.d)||(x.l||'~').localeCompare(y.l||'~','hr',{numeric:true}));
+  if(showBL) return backlog().sort((x,y)=>x.d.localeCompare(y.d));
   const a=S.plan.filter(r=>r.d===S.date);
-  return a.some(r=>r.l)?a.slice().sort((x,y)=>(x.l||'~').localeCompare(y.l||'~','hr',{numeric:true})):a;
+  return a;
 }
 function render(){
   const items=dayItems(), q=$('q').value.trim().toLowerCase();
@@ -241,10 +241,10 @@ function render(){
   $('prog').style.width=(showBL?0:(items.length?done/items.length*100:0))+'%';
   $('progTxt').textContent=showBL?`Brojite zaostatke; svaki se bilježi pod svojim izvornim ${per?'tjednom':'datumom'}`:`Prebrojano ${done} od ${items.length}`+(ex?` · izvan popisa: ${ex}`:'');
   let rows=items.filter(r=>{const c=S.counts[key(r.d,r.s)];return filter==='all'||(filter==='done'?c:!c)});
-  if(q) rows=rows.filter(r=>(r.s+' '+r.n+' '+r.bar+' '+r.l).toLowerCase().includes(q));
+  if(q) rows=rows.filter(r=>(r.s+' '+r.n+' '+r.bar).toLowerCase().includes(q));
   navList=rows;
   $('list').innerHTML=rows.map(r=>{const c=S.counts[key(r.d,r.s)];
-    return `<div class="item ${c?'done':''}" data-k="${esc(key(r.d,r.s))}"><span class="tag ${esc(r.k)}">${esc(r.k)}</span><div class="t"><b>${esc(r.n||r.s)}</b><span class="mut">${esc(r.s)}${r.l?' · '+esc(r.l):''}${showBL?' · '+esc(plabel(r)):''}</span></div><span class="q">${c?esc(fmtQ(c.qty)):'›'}</span></div>`}).join('')
+    return `<div class="item ${c?'done':''}" data-k="${esc(key(r.d,r.s))}"><span class="tag ${esc(r.k)}">${esc(r.k)}</span><div class="t"><b>${esc(r.n||r.s)}</b><span class="mut">${esc(r.s)}${showBL?' · '+esc(plabel(r)):''}</span></div><span class="q">${c?esc(fmtQ(c.qty)):'›'}</span></div>`}).join('')
     ||'<div class="mut" style="text-align:center;padding:24px">Nema stavki za prikaz.</div>';
 }
 $('list').onclick=e=>{const el=e.target.closest('.item');if(el)openCount(S.plan.find(r=>key(r.d,r.s)===el.dataset.k))};
@@ -265,7 +265,7 @@ function lookup(code){
 function openCount(r){
   cur={r,extra:null}; const c=S.counts[key(r.d,r.s)];
   $('cName').textContent=r.n||r.s;
-  $('cMeta').textContent=[r.s,r.bar&&('bar kod '+r.bar),r.l&&('lokacija '+r.l),showBL&&plabel(r),r.i&&('brojanje '+r.i+'/'+r.o),'razred '+r.k].filter(Boolean).join(' · ');
+  $('cMeta').textContent=[r.s,r.bar&&('bar kod '+r.bar),showBL&&plabel(r),r.i&&('brojanje '+r.i+'/'+r.o),'razred '+r.k].filter(Boolean).join(' · ');
   $('cQty').value=c?fmtQ(c.qty):''; $('cNote').value=c?c.note:''; $('cMsg').innerHTML=c?`<div class="msg warn">Već prebrojano: <b>${esc(fmtQ(c.qty))}</b> (${esc(new Date(c.ts).toLocaleTimeString('hr',{hour:'2-digit',minute:'2-digit'}))}). Spremanjem se količina mijenja, a „Poništi" briše brojanje.</div>`:'';
   $('cClear').classList.toggle('hide',!c); $('cSaveScan').classList.toggle('hide',!hasCam());
   const ni=navList.findIndex(x=>key(x.d,x.s)===key(r.d,r.s)); $('cNav').classList.toggle('hide',ni<0); $('cSaveNext').classList.remove('hide'); $('cPos').textContent=ni<0?'':(ni+1)+' / '+navList.length;
@@ -351,11 +351,11 @@ $('scan').onclick=startScan; $('camClose').onclick=stopScan;
 
 // ---------- izvoz ----------
 function exportRows(scope){
-  const mk=(r,c,status)=>({Datum:r.e?plabel(r):hrDate(r.d).slice(0,-1),'Šifra':r.s,'Bar kod':r.bar,Naziv:r.n,Klasa:r.k,Lokacija:r.l,'Pronađena količina':c?c.qty:'',Napomena:c?c.note:'',Vrijeme:c?c.ts.replace('T',' ').slice(0,19):'',Status:status});
+  const mk=(r,c,status)=>({Datum:r.e?plabel(r):hrDate(r.d).slice(0,-1),'Šifra':r.s,'Bar kod':r.bar,Naziv:r.n,Klasa:r.k,'Pronađena količina':c?c.qty:'',Napomena:c?c.note:'',Vrijeme:c?c.ts.replace('T',' ').slice(0,19):'',Status:status});
   const days=scope==='all'?[...new Set(S.plan.map(r=>r.d))].sort():[S.date], out=[];
   for(const d of days){
     S.plan.filter(r=>r.d===d).forEach(r=>{const c=S.counts[key(r.d,r.s)]; if(scope==='all'&&!c)return; out.push(mk(r,c,c?'PREBROJANO':'NIJE PREBROJANO'))});
-    S.extras.filter(x=>x.d===d).forEach(x=>out.push({Datum:dlabel(d).replace(/\.$/,''),'Šifra':x.s||x.code,'Bar kod':x.code,Naziv:x.n,Klasa:'',Lokacija:'','Pronađena količina':x.qty,Napomena:x.note,Vrijeme:x.ts.replace('T',' ').slice(0,19),Status:'IZVAN POPISA'}));
+    S.extras.filter(x=>x.d===d).forEach(x=>out.push({Datum:dlabel(d).replace(/\.$/,''),'Šifra':x.s||x.code,'Bar kod':x.code,Naziv:x.n,Klasa:'','Pronađena količina':x.qty,Napomena:x.note,Vrijeme:x.ts.replace('T',' ').slice(0,19),Status:'IZVAN POPISA'}));
   }
   return out;
 }
@@ -377,7 +377,7 @@ $('eCsv').onclick=()=>{
 };
 $('eXlsx').onclick=()=>{
   saveOpts(); const rows=exportRows($('eScope').value); if(!rows.length){toast('Nema podataka za izvoz');return}
-  const ws=XLSX.utils.json_to_sheet(rows); ws['!cols']=[12,16,16,36,7,12,18,24,20,16].map(w=>({wch:w}));
+  const ws=XLSX.utils.json_to_sheet(rows); ws['!cols']=[12,16,16,36,7,18,24,20,16].map(w=>({wch:w}));
   const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Brojanje');
   download(new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})],{type:'application/octet-stream'}),fname('xlsx'));
 };

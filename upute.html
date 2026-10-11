@@ -49,9 +49,9 @@ a{color:var(--or)}
 <figure><img src="upute/01-planer-pocetak.jpg" alt="Početni zaslon planera"><figcaption>Početni zaslon: korak 1 (Artikli) i korak 2 (Pravila).</figcaption></figure>
 
 <h3><span class="n">2</span>Učitajte popis artikala</h3>
-<p>Povucite Excel ili CSV u okvir ili kliknite za odabir datoteke. Alat sam prepozna stupce <b>šifre, naziva, vrijednosti, bar koda i lokacije</b>; ako se zabuni, ispravite ih izbornicima. Ako popis nema ABC klasu, alat je izračuna iz vrijednosti (Pareto, 80 % i 95 %), a granice možete promijeniti. Za probu postoji gumb „Učitaj primjer", a „Preuzmi predložak" daje praznu tablicu.</p>
+<p>Povucite Excel ili CSV u okvir ili kliknite za odabir datoteke. Alat sam prepozna stupce <b>šifre, naziva, vrijednosti i bar koda</b>; ako se zabuni, ispravite ih izbornicima. Ako popis nema ABC klasu, alat je izračuna iz vrijednosti (Pareto, 80 % i 95 %), a granice možete promijeniti. Za probu postoji gumb „Učitaj primjer", a „Preuzmi predložak" daje praznu tablicu.</p>
 <figure><img src="upute/02-planer-ucitavanje.jpg" alt="Učitani popis i prepoznati stupci"><figcaption>Nakon učitavanja alat javlja koliko je artikala u kojem razredu.</figcaption></figure>
-<div class="tip"><b>Savjet:</b> za brojanje na mobitelu popis treba imati stupac s <b>bar kodom</b>. Lokacija je neobavezna, ali ako je imate, skladištar dobiva popis složen po lokacijama, pa ne hoda nepotrebno.</div>
+<div class="tip"><b>Savjet:</b> za skeniranje na mobitelu popis treba imati stupac s <b>bar kodom</b>. Bez njega artikle birate s popisa.</div>
 
 <h3><span class="n">3</span>Zadajte pravila</h3>
 <p>Odaberite razdoblje (zadano je jedna kalendarska godina), radne dane i hoće li se preskočiti blagdani RH. Dodatne neradne dane (kolektivni godišnji, godišnja inventura) upišete u polje ispod. <b>Razina rasporeda</b> određuje što dobivate:</p>
@@ -82,7 +82,7 @@ a{color:var(--or)}
 </div>
 
 <h3><span class="n">2</span>Otvorite popis za danas</h3>
-<p>Aplikacija sama otvori popis za današnji dan (ili tjedan, ako ste birali tjedni raspored). Padajući izbornik gore mijenja dan, a gumb „Danas" vraća na današnji. Traka pokazuje koliko je prebrojano. Popis je složen po lokacijama, a filteri „Sve / Neprebrojano / Prebrojano" pomažu da se ne preskoči ništa.</p>
+<p>Aplikacija sama otvori popis za današnji dan (ili tjedan, ako ste birali tjedni raspored). Padajući izbornik gore mijenja dan, a gumb „Danas" vraća na današnji. Traka pokazuje koliko je prebrojano. Filteri „Sve / Neprebrojano / Prebrojano" pomažu da se ne preskoči ništa.</p>
 
 <h3><span class="n">3</span>Brojite: skenirajte ili birajte s popisa</h3>
 <p>Artikl možete pronaći na tri načina: dodirom na popis, <b>kamerom</b> (gumb 📷, radi u Chromeu na Androidu) ili upisom odnosno čitačem bar koda koji radi kao tipkovnica u polje na vrhu. Otvori se prozor za upis količine.</p>
@@ -95,7 +95,7 @@ a{color:var(--or)}
 <div class="tip"><b>Slijepo brojanje:</b> aplikacija namjerno ne pokazuje stanje iz sustava. Brojač upisuje ono što vidi, a razliku računate poslije, u WMS-u ili ERP-u, gdje je stanje stvarno.</div>
 
 <h3><span class="n">4</span>Izvezite rezultat</h3>
-<p>Na kraju dana pritisnite „Izvoz". Birate dan ili sve dane, <b>CSV</b> (separator i decimalni znak prema vašem sustavu) ili <b>Excel</b>. Izvoz ima stupce: datum, šifra, bar kod, naziv, klasa, lokacija, pronađena količina, napomena, vrijeme i status (prebrojano, nije prebrojano, izvan popisa). Datoteku ručno ili poluautomatski prenosite u WMS ili ERP.</p>
+<p>Na kraju dana pritisnite „Izvoz". Birate dan ili sve dane, <b>CSV</b> (separator i decimalni znak prema vašem sustavu) ili <b>Excel</b>. Izvoz ima stupce: datum, šifra, bar kod, naziv, klasa, pronađena količina, napomena, vrijeme i status (prebrojano, nije prebrojano, izvan popisa). Datoteku ručno ili poluautomatski prenosite u WMS ili ERP.</p>
 <figure class="phone"><img src="upute/09-brojanje-izvoz.jpg" alt="Izvoz brojanja"><figcaption>Izvoz u CSV ili Excel.</figcaption></figure>
 
 <h2>Česta pitanja</h2>
@@ -110,7 +110,7 @@ a{color:var(--or)}
 <p>Da. Kamera nije potrebna. Kad otvorite popis za taj dan, svaki artikl je na popisu: dodirnete ga, upišete količinu i pritisnete „Spremi i sljedeći" ili strelicama idete kroz popis. Možete i upisati šifru ili bar kod u polje na vrhu, ili koristiti ručni čitač koji radi kao tipkovnica.</p>
 
 <h3>Što ako skeniram krivi artikl?</h3>
-<p>Aplikacija ne može znati što ste namjeravali skenirati, pa ovisi o tome gdje je taj kod. Ako artikl <b>jest na današnjem popisu</b>, otvori se njegov prozor s nazivom i lokacijom, vi vidite da to nije on, zatvorite prozor i ništa se ne sprema. Ako je artikl u planu ali za neki <b>drugi dan</b>, javi „Nije na popisu za ovaj dan" i kaže kad je planiran. Ako je kod <b>nepoznat</b>, javi to isto, a ako ipak upišete količinu, bilježi se kao „izvan popisa". Ako ste već spremili količinu na krivi artikl, otvorite ga ponovno i pritisnite „Poništi".</p>
+<p>Aplikacija ne može znati što ste namjeravali skenirati, pa ovisi o tome gdje je taj kod. Ako artikl <b>jest na današnjem popisu</b>, otvori se njegov prozor s nazivom, vi vidite da to nije on, zatvorite prozor i ništa se ne sprema. Ako je artikl u planu ali za neki <b>drugi dan</b>, javi „Nije na popisu za ovaj dan" i kaže kad je planiran. Ako je kod <b>nepoznat</b>, javi to isto, a ako ipak upišete količinu, bilježi se kao „izvan popisa". Ako ste već spremili količinu na krivi artikl, otvorite ga ponovno i pritisnite „Poništi".</p>
 
 <h3>Što ako isti artikl skeniram dvaput?</h3>
 <p>Ništa se ne briše tiho: prozor pokaže „Već prebrojano: količina (vrijeme)". Spremanjem upisujete novu količinu, „Poništi" briše brojanje.</p>

@@ -100,7 +100,6 @@ footer{color:var(--mut);font-size:13px;text-align:center;margin-top:8px}
       <div><label>Stupac: ABC klasa</label><select id="mKlasa"></select></div>
       <div><label>Stupac: vrijednost (za automatski ABC)</label><select id="mVrijednost"></select></div>
       <div><label>Stupac: bar kod (za mobilno brojanje)</label><select id="mBar"></select></div>
-      <div><label>Stupac: lokacija</label><select id="mLok"></select></div>
     </div>
     <div class="grid hide" id="abcAuto" style="margin-top:12px">
       <div><label>Razred A: kumulativno do (%)</label><input type="number" id="pA" value="80" min="1" max="99"></div>
@@ -437,17 +436,17 @@ function setData(aoa,label){
   $('fname').textContent=label+' · '+fmt(rawRows.length)+' redaka';
   const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/[^a-z0-9]/g,'');
   const find=(keys,skip=[])=>{for(const k of keys){const i=headers.findIndex((h,j)=>!skip.includes(j)&&norm(h).includes(k));if(i>=0)return i}return -1};
-  const idx={Bar:find(['barkod','barcode','ean','gtin','bar']),Lok:find(['lokacij','pozicij','regal','location','bin']),Klasa:find(['klasa','abc','class','razred']),Vrijednost:find(['vrijednost','value','iznos','promet','potrosnja','trosak'])};
+  const idx={Bar:find(['barkod','barcode','ean','gtin','bar']),Klasa:find(['klasa','abc','class','razred']),Vrijednost:find(['vrijednost','value','iznos','promet','potrosnja','trosak'])};
   idx.Sifra=find(['sifra','sku','artikl','item','code','kod','id'],[idx.Bar]);
   idx.Naziv=find(['naziv','opis','name','description'],[idx.Sifra]);
   const opts=(none)=>(none?'<option value="-1">— nema —</option>':'')+headers.map((h,i)=>`<option value="${i}">${esc(h)}</option>`).join('');
-  $('mSifra').innerHTML=opts(false); ['mNaziv','mKlasa','mVrijednost','mBar','mLok'].forEach(id=>$(id).innerHTML=opts(true));
-  $('mSifra').value=idx.Sifra>=0?idx.Sifra:0; $('mNaziv').value=idx.Naziv; $('mKlasa').value=idx.Klasa; $('mVrijednost').value=idx.Vrijednost; $('mBar').value=idx.Bar; $('mLok').value=idx.Lok;
+  $('mSifra').innerHTML=opts(false); ['mNaziv','mKlasa','mVrijednost','mBar'].forEach(id=>$(id).innerHTML=opts(true));
+  $('mSifra').value=idx.Sifra>=0?idx.Sifra:0; $('mNaziv').value=idx.Naziv; $('mKlasa').value=idx.Klasa; $('mVrijednost').value=idx.Vrijednost; $('mBar').value=idx.Bar;
   $('mapping').classList.remove('hide');
   plan=null; $('resSec').classList.add('hide'); $('expSec').classList.add('hide');
   buildItems();
 }
-['mSifra','mNaziv','mKlasa','mVrijednost','mBar','mLok','pA','pB'].forEach(id=>$(id).addEventListener('change',buildItems));
+['mSifra','mNaziv','mKlasa','mVrijednost','mBar','pA','pB'].forEach(id=>$(id).addEventListener('change',buildItems));
 
 function num(v){
   if(typeof v==='number')return v;
@@ -458,7 +457,7 @@ function num(v){
 }
 
 function buildItems(){
-  const iS=+$('mSifra').value,iN=+$('mNaziv').value,iK=+$('mKlasa').value,iV=+$('mVrijednost').value,iB=+$('mBar').value,iL=+$('mLok').value;
+  const iS=+$('mSifra').value,iN=+$('mNaziv').value,iK=+$('mKlasa').value,iV=+$('mVrijednost').value,iB=+$('mBar').value;
   dropped={prazno:0,duplikat:0,klasa:0,bezVrijednosti:0};
   const seen=new Set(); items=[];
   rawRows.forEach(r=>{
@@ -468,7 +467,7 @@ function buildItems(){
     seen.add(sifra);
     let klasa='';
     if(iK>=0){const k=String(r[iK]??'').trim().toUpperCase(); if(k){ if(['A','B','C'].includes(k[0])&&k.length<=2) klasa=k[0]; else {dropped.klasa++;return} }}
-    items.push({sifra,naziv:iN>=0?String(r[iN]??'').trim():'',klasa,vrijednost:iV>=0?num(r[iV]):0,bar:iB>=0?String(r[iB]??'').trim():'',lok:iL>=0?String(r[iL]??'').trim():''});
+    items.push({sifra,naziv:iN>=0?String(r[iN]??'').trim():'',klasa,vrijednost:iV>=0?num(r[iV]):0,bar:iB>=0?String(r[iB]??'').trim():''});
   });
   const need=items.filter(i=>!i.klasa);
   const auto=need.length>0;
@@ -622,7 +621,7 @@ $('xlsx').onclick=()=>{
   wb.SheetNames.push('Sažetak'); wb.Sheets['Sažetak']=sheet(sum,[34,16,90],false,false);
 
   const blank=['',''];
-  const xc=[['Bar kod',i=>i.bar,16],['Lokacija',i=>i.lok,12]].filter(c=>its.some(i=>i[{'Bar kod':'bar','Lokacija':'lok'}[c[0]]]!==''));
+  const xc=[['Bar kod',i=>i.bar,16]].filter(c=>its.some(i=>i.bar!==''));
   const xh=xc.map(c=>c[0]), xw=xc.map(c=>c[2]), xv=i=>xc.map(c=>c[1](i));
   if(p.gran!=='week'){
     const rows=[['Datum','Dan','Tjedan','Šifra','Naziv','Klasa','Brojanje',...xh,'Prebrojano','Napomena']];
