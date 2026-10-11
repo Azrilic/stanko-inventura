@@ -94,7 +94,7 @@ footer{padding:30px 0 50px;color:var(--mut);font-size:14px;text-align:center}
     <div class="hero-vis" id="vis">
       <img class="stanko" src="img/stanko.jpg" alt="Stanko Inventura: kontrolno brojanje u skladištu" onload="document.getElementById('vis').classList.add('has-photo')" onerror="this.remove()">
       <img class="shot" src="upute/04-planer-rezultat.jpg" alt="Planer: rezultat i validacija">
-      <div class="float f1"><b data-n="2854">2.854</b> brojanja raspoređeno<span>demo popis: 1.808 artikala, 253 dana</span></div>
+      <div class="float f1"><b>A · B · C</b>razvrstavanje artikala<span>po vrijednosti, Pareto pravilo</span></div>
       <div class="float f2"><i>✓</i> Validacija u redu</div>
       <img class="ph" src="upute/08-brojanje-upis.jpg" alt="Aplikacija za brojanje na mobitelu">
     </div>
@@ -140,8 +140,50 @@ footer{padding:30px 0 50px;color:var(--mut);font-size:14px;text-align:center}
   <p style="margin-top:26px"><a href="upute.html" style="font-weight:700">Pročitajte uputu s ekranima →</a></p>
 </div></section>
 
+<section class="alt" id="zasto" style="padding:56px 0"><div class="wrap">
+<style>
+.why{--navy:#1B2A4A;--or:#E55A00;color:#353a3d}
+.why-in{display:grid;grid-template-columns:5fr 7fr;gap:40px;align-items:center}
+.why h2{color:#1B2A4A!important;font-size:30px!important;line-height:1.2!important;margin:0 0 12px!important}
+.why p{margin:0 0 14px}
+.why-fig{margin:0;background:#fff;border:1px solid #e4e7eb;border-radius:16px;padding:18px 18px 12px;box-shadow:0 10px 30px rgba(14,21,40,.08)}
+.why-svg{width:100%;height:auto;display:block}
+.why-svg .g{stroke:#e4e7eb;stroke-width:1}.why-svg .t{fill:#667780;font:20px -apple-system,Segoe UI,sans-serif}
+.why-svg .goal{stroke:#1b7f4b;stroke-width:3;stroke-dasharray:10 8}.why-svg .goalt{fill:#1b7f4b;font:700 22px -apple-system,Segoe UI,sans-serif}
+.why-svg .ln{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.why-svg .a{stroke:#b42318;stroke-width:5}.why-svg .c{stroke:#1B2A4A;stroke-width:5}.why-svg .k{stroke:#E55A00;stroke-width:7}
+.why-fig.pre .ln{stroke-dashoffset:1}
+.why-fig.go .ln{transition:stroke-dashoffset 1.6s ease-out}.why-fig.go .a{transition-delay:.1s}.why-fig.go .c{transition-delay:.7s}.why-fig.go .k{transition-delay:1.3s;transition-duration:1.8s}
+.why-fig.go .ln{stroke-dashoffset:0}
+.why-leg{display:flex;gap:8px 20px;flex-wrap:wrap;font-size:14px;margin:6px 4px 4px}.why-leg span{display:inline-flex;align-items:center;gap:7px}.why-leg i{display:inline-block;width:22px;height:4px;border-radius:2px}
+.why-cap{font-size:13px;color:#667780;margin:6px 4px 0}
+@media (max-width:860px){.why-in{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.why-fig .ln{transition:none!important}}
+</style>
+<div class="why"><div class="why-in">
+  <div>
+    <h2>Zašto brojati malo, ali stalno</h2>
+    <p>Godišnja inventura jednom vrati stanje gotovo na vrh, ali se točnost zatim troši iz mjeseca u mjesec: svaka krivo upisana količina i svaki zaobiđeni dokument ostaju u sustavu do sljedeće inventure.</p>
+    <p>Ciklička inventura ne počinje s vrha, ali točnost stalno popravlja i drži. U pravilu najbolje rezultate daje kombinacija: godišnja inventura kao polazna točka, a ciklička kao održavanje tijekom cijele godine. Cilj je točnost zaliha od 98 % i više.</p>
+  </div>
+  <figure class="why-fig" id="whyFig">
+    <svg viewBox="0 0 920 410" role="img" aria-label="Shematski prikaz točnosti zaliha kroz godinu: samo godišnja inventura pada, ciklička raste, a kombinacija se drži iznad cilja od 98 posto" class="why-svg">
+<line x1="104" x2="892" y1="356.0" y2="356.0" class="g"/><text x="92" y="363.0" text-anchor="end" class="t">60%</text><line x1="104" x2="892" y1="278.0" y2="278.0" class="g"/><text x="92" y="285.0" text-anchor="end" class="t">70%</text><line x1="104" x2="892" y1="200.0" y2="200.0" class="g"/><text x="92" y="207.0" text-anchor="end" class="t">80%</text><line x1="104" x2="892" y1="122.0" y2="122.0" class="g"/><text x="92" y="129.0" text-anchor="end" class="t">90%</text><line x1="104" x2="892" y1="44.0" y2="44.0" class="g"/><text x="92" y="51.0" text-anchor="end" class="t">100%</text><text x="104.0" y="390" text-anchor="middle" class="t">SIJ</text><text x="175.6" y="390" text-anchor="middle" class="t">VELJ</text><text x="247.3" y="390" text-anchor="middle" class="t">OŽU</text><text x="318.9" y="390" text-anchor="middle" class="t">TRA</text><text x="390.5" y="390" text-anchor="middle" class="t">SVI</text><text x="462.2" y="390" text-anchor="middle" class="t">LIP</text><text x="533.8" y="390" text-anchor="middle" class="t">SRP</text><text x="605.5" y="390" text-anchor="middle" class="t">KOL</text><text x="677.1" y="390" text-anchor="middle" class="t">RUJ</text><text x="748.7" y="390" text-anchor="middle" class="t">LIS</text><text x="820.4" y="390" text-anchor="middle" class="t">STU</text><text x="892.0" y="390" text-anchor="middle" class="t">PRO</text>
+<line x1="104" x2="892" y1="59.6" y2="59.6" class="goal"/><text x="892" y="89.6" text-anchor="end" class="goalt">Cilj: 98 %+</text>
+<path d="M104.0 58.0 L121.9 63.7 L139.8 69.5 L157.7 75.2 L175.6 80.9 L193.5 86.6 L211.5 92.3 L229.4 98.0 L247.3 103.7 L265.2 109.4 L283.1 115.1 L301.0 120.8 L318.9 126.5 L336.8 132.2 L354.7 138.0 L372.6 143.7 L390.5 149.4 L408.5 155.1 L426.4 160.8 L444.3 166.5 L462.2 172.2 L480.1 177.9 L498.0 183.6 L515.9 189.3 L533.8 195.0 L551.7 200.7 L569.6 206.5 L587.5 212.2 L605.5 217.9 L623.4 223.6 L641.3 229.3 L659.2 235.0 L677.1 240.7 L695.0 246.4 L712.9 252.1 L730.8 257.8 L748.7 263.5 L766.6 269.2 L784.5 275.0 L802.5 280.7 L820.4 286.4 L838.3 292.1 L856.2 297.8 L874.1 303.5 L892.0 309.2" class="ln a" pathLength="1"/>
+<path d="M104.0 317.0 L121.9 300.9 L139.8 285.9 L157.7 272.0 L175.6 259.1 L193.5 247.1 L211.5 235.9 L229.4 225.5 L247.3 215.9 L265.2 207.0 L283.1 198.6 L301.0 190.9 L318.9 183.7 L336.8 177.1 L354.7 170.9 L372.6 165.1 L390.5 159.8 L408.5 154.8 L426.4 150.2 L444.3 145.9 L462.2 141.9 L480.1 138.2 L498.0 134.8 L515.9 131.6 L533.8 128.6 L551.7 125.8 L569.6 123.3 L587.5 120.9 L605.5 118.7 L623.4 116.6 L641.3 114.7 L659.2 112.9 L677.1 111.3 L695.0 109.7 L712.9 108.3 L730.8 107.0 L748.7 105.8 L766.6 104.6 L784.5 103.6 L802.5 102.6 L820.4 101.7 L838.3 100.8 L856.2 100.0 L874.1 99.3 L892.0 98.6" class="ln c" pathLength="1"/>
+<path d="M104.0 52.6 L121.9 53.4 L139.8 54.1 L157.7 54.8 L175.6 55.4 L193.5 55.9 L211.5 56.3 L229.4 56.7 L247.3 57.0 L265.2 57.3 L283.1 57.6 L301.0 57.8 L318.9 58.1 L336.8 58.2 L354.7 58.4 L372.6 58.5 L390.5 58.7 L408.5 58.8 L426.4 58.9 L444.3 59.0 L462.2 59.1 L480.1 59.1 L498.0 59.2 L515.9 59.2 L533.8 59.3 L551.7 59.3 L569.6 59.4 L587.5 59.4 L605.5 59.4 L623.4 59.4 L641.3 59.5 L659.2 59.5 L677.1 59.5 L695.0 59.5 L712.9 59.5 L730.8 59.5 L748.7 59.6 L766.6 59.6 L784.5 59.6 L802.5 59.6 L820.4 59.6 L838.3 59.6 L856.2 59.6 L874.1 59.6 L892.0 59.6" class="ln k" pathLength="1"/>
+<text x="24" y="200.0" transform="rotate(-90 24 200.0)" text-anchor="middle" class="t">Točnost zaliha</text>
+</svg>
+    <div class="why-leg"><span><i style="background:#b42318"></i>Samo godišnja inventura</span><span><i style="background:#1B2A4A"></i>Samo ciklička inventura</span><span><i style="background:#E55A00"></i>Godišnja + ciklička inventura</span></div>
+    <figcaption class="why-cap">Shematski prikaz načela, ne mjerenje na stvarnom skladištu.</figcaption>
+  </figure>
+</div></div>
+<script>(function(){var f=document.getElementById('whyFig');if(!f||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;f.classList.add('pre');var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){f.getBoundingClientRect();setTimeout(function(){f.classList.add('go')},60);io.disconnect()}})},{threshold:.25});io.observe(f)})();</script>
+</div></section>
+
 <section class="quote"><div class="wrap">
-  <blockquote><p class="q">Teškim se pozabavi dok je još lako, a velikim dok je još malo. Mudrac nikad ne čini ono što je veliko, i upravo zato postiže najveće.</p><cite>Laozi, Tao Te Ching, 63. poglavlje (slobodan prijevod)</cite></blockquote>
+  <blockquote><p class="q">Čini ono što je veliko dok je još malo.<br><b>Najveće stvari na svijetu moraju biti učinjene dok su još male.</b></p><cite>Laozi (Lao Tzu), Tao Te Ching</cite></blockquote>
   <p class="bridge">Ciklička inventura je upravo to: nekoliko artikala svaki dan umjesto svega jednom godišnje.</p>
 </div></section>
 
