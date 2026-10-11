@@ -1,8 +1,138 @@
 <!doctype html>
-<html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>Stanko Inventura</title>
-<style>body{font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:560px;margin:10vh auto;padding:0 16px;color:#1c2430}h1{margin:0 0 4px}p{color:#667085}a{display:block;margin:10px 0;padding:14px 16px;border:1px solid #e3e7ee;border-radius:10px;text-decoration:none;color:#1f4e79;font-weight:600}a span{display:block;color:#667085;font-weight:400;font-size:14px}</style></head>
-<body><h1>Stanko Inventura</h1><p>Ciklička inventura bez muke · Logiko d.o.o.</p>
-<a href="ciklicka-inventura.html">Planer cikličke inventure<span>Učitajte popis artikala i dobijte raspored brojanja po danima ili tjednima.</span></a>
-<a href="brojanje.html">Brojanje na mobitelu<span>Skeniranje bar koda i upis pronađenih količina, izvoz u CSV ili Excel.</span></a>
-<p style="font-size:13px">Podaci ostaju u vašem pregledniku i ne šalju se nikamo.</p></body></html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B2A4A">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<title>Stanko Inventura – ciklička inventura bez muke</title>
+<style>
+:root{--bg:#f7f8f9;--card:#fff;--ink:#1B2A4A;--txt:#353a3d;--mut:#667780;--line:#e4e7eb;--or:#E55A00;--or2:#F59060}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1528;--card:#162039;--ink:#e8ecf2;--txt:#cfd6e4;--mut:#9aa6bd;--line:#26345a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:var(--or)}
+/* hero */
+.hero{background:linear-gradient(120deg,#0E1528 0%,#1B2A4A 70%);color:#fff;border-bottom:4px solid var(--or);overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px}.brand b{font-weight:800}.brand i{font-style:normal;color:var(--or2);font-weight:700}
+.nav a.logiko{color:#c9d3ea;text-decoration:none;font-size:14px}
+.hero-in{display:flex;gap:40px;align-items:center;justify-content:space-between;padding:26px 0 64px}
+.hero h1{font-size:46px;line-height:1.1;margin:0 0 16px;color:#fff;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:var(--or2)}
+.hero p.lead{font-size:19px;color:#c9d3ea;margin:0 0 24px;max-width:540px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 24px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px;transition:all .15s}
+.btn.pri{background:var(--or);color:#fff}.btn.pri:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn.sec{border:2px solid rgba(255,255,255,.35);color:#fff}.btn.sec:hover{border-color:#fff;transform:translateY(-2px)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.chips span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 13px;font-size:14px;color:#dbe3f5}
+.hero-vis{flex:none;width:430px;position:relative}
+.hero-vis img.shot{width:100%;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);animation:float 6s ease-in-out infinite}
+.hero-vis img.ph{position:absolute;right:-26px;bottom:-44px;width:150px;border-radius:18px;box-shadow:0 14px 36px rgba(0,0,0,.55);border:3px solid #1B2A4A;animation:float 6s ease-in-out -2s infinite}
+.hero-vis img.stanko{display:block;width:100%;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.5);margin-bottom:16px}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero-in>*{animation:fadeUp .6s ease both}.hero-vis{animation-delay:.15s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* sekcije */
+section{padding:64px 0}
+h2{color:var(--ink);font-size:32px;line-height:1.2;margin:0 0 8px}
+.sub{color:var(--mut);margin:0 0 34px;max-width:640px}
+.steps{display:grid;gap:20px;grid-template-columns:repeat(3,1fr)}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+.step .n{width:38px;height:38px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.step h3{margin:0 0 6px;color:var(--ink);font-size:20px}.step p{margin:0;font-size:16px}
+.tools{display:grid;gap:24px;grid-template-columns:1fr 1fr}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.tool .img{background:linear-gradient(135deg,#eef1f6,#dde3ee);padding:22px 22px 0;height:260px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+@media (prefers-color-scheme:dark){.tool .img{background:linear-gradient(135deg,#1B2A4A,#0E1528)}}
+.tool .img img{width:100%;border-radius:10px 10px 0 0;box-shadow:0 8px 30px rgba(14,21,40,.25)}
+.tool .img.ph img{width:auto;height:100%;max-width:52%;border-radius:18px 18px 0 0}
+.tool .body{padding:24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tool h3{margin:0;color:var(--ink);font-size:24px}.tool .tag{font-size:13px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:1px}
+.tool p{margin:0}.tool .btn{margin-top:auto;align-self:flex-start}
+.tool .btn.pri{margin-top:12px}
+.feat{display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
+.f{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}.f b{display:block;color:var(--ink);margin-bottom:2px}.f span{font-size:15px;color:var(--mut)}
+.alt{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cta{background:linear-gradient(120deg,#0E1528,#1B2A4A);color:#fff;border-radius:18px;padding:40px;display:flex;gap:30px;align-items:center;justify-content:space-between;border-left:6px solid var(--or)}
+.cta h2{color:#fff;font-size:28px}.cta p{color:#c9d3ea;margin:0;max-width:600px}
+footer{padding:30px 0 50px;color:var(--mut);font-size:14px;text-align:center}
+@media (max-width:900px){.hero-in{flex-direction:column;align-items:flex-start;padding-bottom:70px}.hero h1{font-size:34px}.hero-vis{width:100%;max-width:440px}.hero-vis img.ph{right:-8px}
+ .steps,.tools,.feat{grid-template-columns:1fr}.cta{flex-direction:column;align-items:flex-start;padding:28px}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="wrap">
+  <div class="nav">
+    <div class="brand"><svg width="42" height="42" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1B2A4A" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><g fill="#fff"><rect x="14" y="17" width="4" height="30"/><rect x="21" y="17" width="2" height="30"/><rect x="26" y="17" width="6" height="30"/><rect x="35" y="17" width="2" height="30"/><rect x="40" y="17" width="4" height="30"/></g><circle cx="44" cy="43" r="12.5" fill="#1B2A4A"/><circle cx="44" cy="43" r="10.5" fill="#E55A00"/><path d="M38.5 43.5l4 4 7.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Stanko</b> <i>Inventura</i></span></div>
+    <a class="logiko" href="https://logiko.hr" target="_blank" rel="noopener">Besplatni alat · Logiko d.o.o.</a>
+  </div>
+  <div class="hero-in">
+    <div>
+      <h1>Ciklička inventura <em>bez muke</em></h1>
+      <p class="lead">Učitajte popis artikala i za nekoliko minuta dobijte raspored brojanja za cijelu godinu, s ravnomjernim opterećenjem po danima ili tjednima. Skladištar zatim broji na mobitelu, a rezultat izvozi u CSV ili Excel.</p>
+      <div class="btns"><a class="btn pri" href="ciklicka-inventura.html">Otvori planer</a><a class="btn sec" href="brojanje.html">Brojanje na mobitelu</a></div>
+      <div class="chips"><span>A = 6 · B = 2 · C = 1</span><span>Dnevno ili tjedno</span><span>Skeniranje bar koda</span><span>Podaci ostaju u vašem pregledniku</span></div>
+    </div>
+    <div class="hero-vis">
+      <img class="stanko" src="img/stanko.jpg" alt="Stanko Inventura" onerror="this.remove()">
+      <img class="shot" src="upute/04-planer-rezultat.jpg" alt="Planer: rezultat i validacija">
+      <img class="ph" src="upute/08-brojanje-upis.jpg" alt="Aplikacija za brojanje na mobitelu">
+    </div>
+  </div>
+</div></div>
+
+<section><div class="wrap">
+  <h2>Tri koraka od popisa do brojanja</h2>
+  <p class="sub">Većina skladišta jednom godišnje stane i broji sve. Ciklička inventura broji malo, ali stalno, a ovaj alat rješava ono što je u praksi najteže: kako raspodijeliti tisuće brojanja kroz godinu tako da svaki dan ostane podnošljiv.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Učitajte popis artikala</h3><p>Excel ili CSV sa šifrom, nazivom i vrijednošću. Alat sam razvrsta artikle u razrede A, B i C po ABC pravilu.</p></div>
+    <div class="step"><div class="n">2</div><h3>Dobijte raspored</h3><p>Brojanja se ravnomjerno raspoređuju po radnim danima ili tjednima, uz validaciju da je svako brojanje na popisu.</p></div>
+    <div class="step"><div class="n">3</div><h3>Brojite na mobitelu</h3><p>Skladištar svaki dan dobije svoj popis, skenira bar kod, upisuje pronađenu količinu i na kraju izvozi rezultat.</p></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Dva alata, jedan tijek</h2>
+  <p class="sub">Planer radite jednom godišnje na računalu. Aplikaciju za brojanje koristi skladištar svaki dan.</p>
+  <div class="tools">
+    <div class="tool"><div class="img"><img src="upute/05-planer-raspored-izvoz.jpg" alt="Planer cikličke inventure"></div>
+      <div class="body"><span class="tag">Na računalu</span><h3>Planer cikličke inventure</h3>
+      <p>Pravila brojanja (A šest puta, B dva puta, C jednom godišnje) možete mijenjati. Raspored može biti dnevni ili tjedni; u tjednom načinu birate hoće li dan brojanja odlučiti skladištar ili će se uvijek brojati istog dana u tjednu. Rezultat je Excel s listovima po danima, po tjednima i po artiklu.</p>
+      <a class="btn pri" href="ciklicka-inventura.html">Otvori planer</a></div></div>
+    <div class="tool"><div class="img ph"><img src="upute/07-brojanje-popis.jpg" alt="Brojanje na mobitelu"></div>
+      <div class="body"><span class="tag">Na mobitelu</span><h3>Brojanje na mobitelu</h3>
+      <p>Učitate godišnji plan jednom, a aplikacija svaki dan otvori popis za taj dan. Brojanje je slijepo, bez prikaza stanja iz sustava. Radi bez interneta, a izvoz u CSV ili Excel možete ručno ili poluautomatski prenijeti u WMS ili ERP.</p>
+      <a class="btn pri" href="brojanje.html">Otvori aplikaciju</a></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Što dobivate</h2>
+  <p class="sub">Bez registracije i bez instalacije. Planer radi u pregledniku, a aplikaciju za brojanje možete dodati na početni zaslon Androida.</p>
+  <div class="feat">
+    <div class="f"><b>ABC pravilo</b><span>Razred A, B i C zadate sami ili ih alat izračuna iz vrijednosti.</span></div>
+    <div class="f"><b>Ravnomjerno opterećenje</b><span>Svaki dan dobiva gotovo jednak broj artikala, uz razumne razmake između brojanja istog artikla.</span></div>
+    <div class="f"><b>Provjera rasporeda</b><span>Alat potvrđuje da su sva brojanja raspoređena i da nijedan artikl nije dvaput istog dana.</span></div>
+    <div class="f"><b>Dnevno ili tjedno</b><span>Tjedni su označeni (T03/2027), a dan brojanja možete ostaviti skladištaru.</span></div>
+    <div class="f"><b>Skeniranje bar koda</b><span>Kamerom mobitela (Chrome na Androidu) ili čitačem koji radi kao tipkovnica.</span></div>
+    <div class="f"><b>Vaši podaci ostaju kod vas</b><span>Sve se obrađuje u vašem pregledniku. Popis artikala ne šalje se nikamo.</span></div>
+  </div>
+  <p style="margin-top:26px"><a href="upute.html" style="font-weight:700">Pročitajte uputu s ekranima →</a></p>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="cta">
+    <div><h2>Što nakon rasporeda?</h2>
+    <p>Ciklička inventura održava točnost zaliha, ali ne objašnjava zašto se razlike uopće događaju. Na <b>Supply Chain dijagnostici 1 na 1</b> (online, 90 minuta, 297 € bez PDV-a) zajedno ocjenjujemo stanje vašeg lanca opskrbe, a vi dobivate mapu prioriteta i plan akcija za idućih 90 dana.</p></div>
+    <a class="btn pri" href="https://logiko.hr/supply-chain-dijagnostika-1-na-1/" target="_blank" rel="noopener">Pogledajte dijagnostiku</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Stanko Inventura · Logiko d.o.o., Zagreb · <a href="https://logiko.hr" target="_blank" rel="noopener">logiko.hr</a></div></footer>
+</body>
+</html>

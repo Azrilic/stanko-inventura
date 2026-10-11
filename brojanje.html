@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<meta name="theme-color" content="#1f4e79">
+<meta name="theme-color" content="#1B2A4A">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <title>Stanko Inventura – brojanje</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#667085;--line:#e3e7ee;--acc:#1f4e79;--acc-ink:#fff;--ok:#1b7f4b;--okbg:#e8f5ee;--warn:#b26b00;--warnbg:#fff4e0;--fail:#b42318;--failbg:#fdebea;--A:#1f4e79;--B:#5b9bd5;--C:#b9d3ea}
-@media (prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1a2029;--ink:#e8ecf2;--mut:#98a2b3;--line:#2a3340;--acc:#6aa7e0;--acc-ink:#0d1a28;--ok:#5fd09a;--okbg:#14291f;--warn:#f0b04a;--warnbg:#2b2210;--fail:#ff8a80;--failbg:#2e1816;--A:#6aa7e0;--B:#3f78b0;--C:#2a4d70}}
+:root{--bg:#f7f8f9;--card:#fff;--ink:#1B2A4A;--mut:#667780;--line:#e4e7eb;--acc:#1B2A4A;--acc-ink:#fff;--or:#E55A00;--or2:#F59060;--ok:#1b7f4b;--okbg:#e8f5ee;--warn:#b26b00;--warnbg:#fff4e0;--fail:#b42318;--failbg:#fdebea;--A:#1B2A4A;--B:#E55A00;--C:#F59060}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1528;--card:#162039;--ink:#e8ecf2;--mut:#9aa6bd;--line:#26345a;--acc:#8fa9e0;--acc-ink:#0E1528;--ok:#5fd09a;--okbg:#14291f;--warn:#f0b04a;--warnbg:#2b2210;--fail:#ff8a80;--failbg:#2e1816;--A:#8fa9e0;--B:#E55A00;--C:#F59060}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-header{position:sticky;top:0;z-index:5;background:var(--acc);color:var(--acc-ink);padding:10px 14px;display:flex;align-items:center;gap:10px}
-header h1{font-size:17px;margin:0;flex:1}
+header{position:sticky;top:0;z-index:5;background:#1B2A4A;color:#fff;border-bottom:3px solid var(--or);padding:10px 14px;display:flex;align-items:center;gap:10px}
+header h1{font-size:18px;margin:0;flex:1}header h1 i{font-style:normal;color:var(--or2)}
 header button{background:rgba(255,255,255,.18);color:inherit;border:0;border-radius:6px;padding:7px 11px;font-size:14px}
 main{max-width:640px;margin:0 auto;padding:12px 12px 90px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
 button,select,input,textarea{font:inherit;color:var(--ink)}
 input,select,textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 12px}
 button.b{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer}
-button.pri{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+button.pri{background:var(--or);color:#fff;border-color:var(--or);font-weight:600}
 button.big{width:100%;padding:15px;font-size:17px}
 button:disabled{opacity:.45}
 .row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
@@ -33,7 +33,7 @@ button:disabled{opacity:.45}
 .item .q{font-weight:700;font-size:18px}
 .tag{display:inline-block;min-width:22px;text-align:center;border-radius:4px;font-weight:700;font-size:12px;padding:1px 5px}
 .tag.A{background:var(--A);color:var(--acc-ink)}.tag.B{background:var(--B);color:#fff}.tag.C{background:var(--C);color:var(--ink)}
-.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:8px 0}.seg button{flex:1;border:0;background:var(--card);padding:9px;font-size:14px;color:var(--mut)}.seg button.on{background:var(--acc);color:var(--acc-ink)}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:8px 0}.seg button{flex:1;border:0;background:var(--card);padding:9px;font-size:14px;color:var(--mut)}.seg button.on{background:var(--or);color:#fff}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:20}
 .modal.on{display:flex}
 .modal.top{align-items:flex-start}.modal.top .sheet{border-radius:0 0 16px 16px;max-height:100%;padding:12px 14px 14px}
@@ -53,7 +53,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;b
 </style>
 </head>
 <body>
-<header><h1>Stanko Inventura</h1><button id="hExp" class="hide">Izvoz</button><button id="hMenu">⋯</button></header>
+<header><svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><rect width="30" height="30" aria-hidden="true" rx="14" fill="#1B2A4A"/><g fill="#fff"><rect x="14" y="17" width="4" height="30"/><rect x="21" y="17" width="2" height="30"/><rect x="26" y="17" width="6" height="30"/><rect x="35" y="17" width="2" height="30"/><rect x="40" y="17" width="4" height="30"/></g><circle cx="44" cy="43" r="12.5" fill="#1B2A4A"/><circle cx="44" cy="43" r="10.5" fill="#E55A00"/><path d="M38.5 43.5l4 4 7.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h1>Stanko <i>Inventura</i></h1><button id="hExp" class="hide">Izvoz</button><button id="hMenu">⋯</button></header>
 <main>
   <div id="vImport" class="card hide">
     <b>Učitajte godišnji plan</b>
@@ -158,14 +158,15 @@ $('file').onchange=async()=>{
     if(!sn) throw new Error('U datoteci nema lista „Dnevni raspored" ni „Tjedni raspored". Koristite Excel izvezen iz Planera cikličke inventure.');
     const aoa=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:'',raw:true});
     const H=aoa[0].map(norm), col=(...ks)=>{for(const k of ks){const i=H.indexOf(k);if(i>=0)return i}return -1};
-    const c={d:sn==='Dnevni raspored'?col('datum'):col('predlozenidan'),s:col('sifra'),n:col('naziv'),k:col('klasa'),b:col('brojanje'),bar:col('barkod'),l:col('lokacija')};
+    const weekly=sn==='Tjedni raspored', hasDay=weekly&&col('predlozenidan')>=0;
+    const c={d:weekly?(hasDay?col('predlozenidan'):col('od')):col('datum'),e:weekly&&!hasDay?col('do'):-1,w:weekly?col('tjedan'):-1,s:col('sifra'),n:col('naziv'),k:col('klasa'),b:col('brojanje'),bar:col('barkod'),l:col('lokacija')};
     if(c.d<0||c.s<0) throw new Error('Nedostaje stupac „Datum" ili „Šifra".');
     const plan=[], bad=0;
     for(const r of aoa.slice(1)){
       const sifra=String(r[c.s]??'').trim(); if(!sifra)continue;
       const d=toISO(r[c.d]); if(!d)continue;
       const br=String(r[c.b]??'').split('/');
-      plan.push({d,s:sifra,n:c.n>=0?String(r[c.n]??''):'',k:c.k>=0?String(r[c.k]??''):'',i:+br[0]||'',o:+br[1]||'',bar:c.bar>=0?String(r[c.bar]??'').trim():'',l:c.l>=0?String(r[c.l]??'').trim():''});
+      plan.push({d,e:c.e>=0?toISO(r[c.e]):'',w:c.w>=0?String(r[c.w]??''):'',s:sifra,n:c.n>=0?String(r[c.n]??''):'',k:c.k>=0?String(r[c.k]??''):'',i:+br[0]||'',o:+br[1]||'',bar:c.bar>=0?String(r[c.bar]??'').trim():'',l:c.l>=0?String(r[c.l]??'').trim():''});
     }
     if(!plan.length) throw new Error('Plan je prazan.');
     S.plan=plan; S.file=f.name; S.date=''; save(); init();
@@ -180,18 +181,27 @@ function toISO(v){
 }
 
 // ---------- početni zaslon ----------
+const short=iso=>iso.slice(8,10)+'.'+iso.slice(5,7)+'.';
+const isoOf=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const plabel=r=>r.e?`${r.w||'Tjedan'} · ${short(r.d)}–${short(r.e)}`:hrDate(r.d);
+const dlabel=d=>{const r=S.plan.find(x=>x.d===d);return r?plabel(r):hrDate(d)};
 function dates(){const m={};S.plan.forEach(r=>m[r.d]=(m[r.d]||0)+1);return m}
+function defaultDate(ds){
+  const t=todayISO(), first={}; S.plan.forEach(r=>{if(!first[r.d])first[r.d]=r});
+  const inP=d=>{const r=first[d];if(!r||!r.e)return false;const end=new Date(r.e+'T00:00:00');end.setDate(end.getDate()+2);return d<=t&&t<=isoOf(end)};
+  return ds.find(inP)||ds.find(d=>d>=t)||ds[ds.length-1];
+}
 function init(){
   const has=S.plan.length>0;
   $('vImport').classList.toggle('hide',has); $('vHome').classList.toggle('hide',!has); $('hExp').classList.toggle('hide',!has);
   if(!has)return;
   const dm=dates(), ds=Object.keys(dm).sort();
-  $('dateSel').innerHTML=ds.map(d=>`<option value="${d}">${hrDate(d)} (${dm[d]})</option>`).join('');
-  if(!S.date||!dm[S.date]) S.date=ds.find(d=>d>=todayISO())||ds[ds.length-1];
+  $('dateSel').innerHTML=ds.map(d=>`<option value="${d}">${esc(dlabel(d))} (${dm[d]})</option>`).join('');
+  if(!S.date||!dm[S.date]) S.date=defaultDate(ds);
   $('dateSel').value=S.date; save(); render();
 }
 $('dateSel').onchange=()=>{S.date=$('dateSel').value;save();render()};
-$('today').onclick=()=>{const ds=Object.keys(dates()).sort();const t=ds.find(d=>d>=todayISO())||ds[ds.length-1];S.date=t;save();init()};
+$('today').onclick=()=>{S.date=defaultDate(Object.keys(dates()).sort());save();init()};
 $('seg').onclick=e=>{if(!e.target.dataset.f)return;filter=e.target.dataset.f;[...$('seg').children].forEach(b=>b.classList.toggle('on',b===e.target));render()};
 $('q').oninput=render;
 $('q').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();lookup($('q').value)}};
@@ -240,7 +250,7 @@ function openCount(r){
 function openExtra(code,other){
   cur={r:null,extra:code};
   $('cName').textContent='Nije na popisu za ovaj dan';
-  $('cMeta').textContent='Pročitano: '+code+(other?' · '+(other.n||other.s)+' (planirano '+hrDate(other.d)+')':' · nepoznat artikl');
+  $('cMeta').textContent='Pročitano: '+code+(other?' · '+(other.n||other.s)+' (planirano '+dlabel(other.d)+')':' · nepoznat artikl');
   $('cQty').value=''; $('cNote').value=''; $('cClear').classList.add('hide'); $('cSaveScan').classList.toggle('hide',!hasCam()); $('cNav').classList.add('hide'); $('cSaveNext').classList.add('hide');
   $('cMsg').innerHTML='<div class="msg warn">Ako upišete količinu, bilježi se kao brojanje <b>izvan popisa</b>.</div>';
   $('mCount').classList.add('on'); setTimeout(()=>$('cQty').focus(),50);
@@ -304,18 +314,18 @@ $('scan').onclick=startScan; $('camClose').onclick=stopScan;
 
 // ---------- izvoz ----------
 function exportRows(scope){
-  const mk=(r,c,status)=>({Datum:hrDate(r.d).slice(0,-1),'Šifra':r.s,'Bar kod':r.bar,Naziv:r.n,Klasa:r.k,Lokacija:r.l,'Pronađena količina':c?c.qty:'',Napomena:c?c.note:'',Vrijeme:c?c.ts.replace('T',' ').slice(0,19):'',Status:status});
+  const mk=(r,c,status)=>({Datum:r.e?plabel(r):hrDate(r.d).slice(0,-1),'Šifra':r.s,'Bar kod':r.bar,Naziv:r.n,Klasa:r.k,Lokacija:r.l,'Pronađena količina':c?c.qty:'',Napomena:c?c.note:'',Vrijeme:c?c.ts.replace('T',' ').slice(0,19):'',Status:status});
   const days=scope==='all'?[...new Set(S.plan.map(r=>r.d))].sort():[S.date], out=[];
   for(const d of days){
     S.plan.filter(r=>r.d===d).forEach(r=>{const c=S.counts[key(r.d,r.s)]; if(scope==='all'&&!c)return; out.push(mk(r,c,c?'PREBROJANO':'NIJE PREBROJANO'))});
-    S.extras.filter(x=>x.d===d).forEach(x=>out.push({Datum:hrDate(d).slice(0,-1),'Šifra':x.s||x.code,'Bar kod':x.code,Naziv:x.n,Klasa:'',Lokacija:'','Pronađena količina':x.qty,Napomena:x.note,Vrijeme:x.ts.replace('T',' ').slice(0,19),Status:'IZVAN POPISA'}));
+    S.extras.filter(x=>x.d===d).forEach(x=>out.push({Datum:dlabel(d).replace(/\.$/,''),'Šifra':x.s||x.code,'Bar kod':x.code,Naziv:x.n,Klasa:'',Lokacija:'','Pronađena količina':x.qty,Napomena:x.note,Vrijeme:x.ts.replace('T',' ').slice(0,19),Status:'IZVAN POPISA'}));
   }
   return out;
 }
 function openExport(){
   $('eSep').value=S.opts.sep; $('eDec').value=S.opts.dec;
   const items=dayItems(), done=items.filter(r=>S.counts[key(r.d,r.s)]).length, ex=S.extras.filter(x=>x.d===S.date).length;
-  $('eInfo').textContent=`${hrDate(S.date)} · prebrojano ${done} od ${items.length}`+(ex?` · izvan popisa: ${ex}`:'');
+  $('eInfo').textContent=`${dlabel(S.date)} · prebrojano ${done} od ${items.length}`+(ex?` · izvan popisa: ${ex}`:'');
   $('mExport').classList.add('on');
 }
 function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}

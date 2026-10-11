@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B2A4A">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <title>Stanko Inventura – planer</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#667085;--line:#e3e7ee;--acc:#1f4e79;--acc-ink:#fff;
---A:#1f4e79;--B:#5b9bd5;--C:#b9d3ea;--ok:#1b7f4b;--warn:#b26b00;--fail:#b42318;--okbg:#e8f5ee;--warnbg:#fff4e0;--failbg:#fdebea}
-@media (prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1a2029;--ink:#e8ecf2;--mut:#98a2b3;--line:#2a3340;--acc:#6aa7e0;--acc-ink:#0d1a28;
---A:#6aa7e0;--B:#3f78b0;--C:#2a4d70;--ok:#5fd09a;--warn:#f0b04a;--fail:#ff8a80;--okbg:#14291f;--warnbg:#2b2210;--failbg:#2e1816}}
+:root{--bg:#f7f8f9;--card:#fff;--ink:#1B2A4A;--mut:#667780;--line:#e4e7eb;--acc:#1B2A4A;--acc-ink:#fff;--or:#E55A00;--or2:#F59060;
+--A:#1B2A4A;--B:#E55A00;--C:#F59060;--ok:#1b7f4b;--warn:#b26b00;--fail:#b42318;--okbg:#e8f5ee;--warnbg:#fff4e0;--failbg:#fdebea}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1528;--card:#162039;--ink:#e8ecf2;--mut:#9aa6bd;--line:#26345a;--acc:#8fa9e0;--acc-ink:#0E1528;
+--A:#8fa9e0;--B:#E55A00;--C:#F59060;--ok:#5fd09a;--warn:#f0b04a;--fail:#ff8a80;--okbg:#14291f;--warnbg:#2b2210;--failbg:#2e1816}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 main{max-width:1080px;margin:0 auto;padding:24px 16px 64px}
@@ -17,17 +19,17 @@ h1{font-size:24px;margin:0 0 4px}
 .sub{color:var(--mut);margin:0 0 20px}
 section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:16px}
 h2{font-size:16px;margin:0 0 12px;display:flex;gap:10px;align-items:center}
-h2 .n{background:var(--acc);color:var(--acc-ink);border-radius:50%;width:24px;height:24px;display:inline-grid;place-items:center;font-size:13px}
+h2 .n{background:var(--or);color:#fff;border-radius:50%;width:24px;height:24px;display:inline-grid;place-items:center;font-size:13px}
 label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
 input[type=checkbox]{width:auto}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:8px 14px;cursor:pointer}
-button.pri{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+button.pri{background:var(--or);color:#fff;border-color:var(--or);font-weight:600}
 button:disabled{opacity:.45;cursor:not-allowed}
 .drop{border:2px dashed var(--line);border-radius:8px;padding:18px;text-align:center;color:var(--mut);cursor:pointer}
-.drop.over{border-color:var(--acc);color:var(--ink)}
+.drop.over,.drop:hover{border-color:var(--or);color:var(--ink)}
 .chk{display:inline-flex;gap:5px;align-items:center;font-size:14px;color:var(--ink);margin:0 10px 0 0}
 .note{font-size:13px;color:var(--mut);margin-top:8px}
 .msg{padding:9px 12px;border-radius:6px;margin-top:10px;font-size:14px}
@@ -40,7 +42,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .kpi{border:1px solid var(--line);border-radius:8px;padding:10px 12px}.kpi span{font-size:12px;color:var(--mut);display:block}.kpi b{font-size:20px}
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:14px 0 10px;flex-wrap:wrap}
 .tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--mut)}
-.tabs button.on{color:var(--ink);border-color:var(--acc);font-weight:600}
+.tabs button.on{color:var(--ink);border-color:var(--or);font-weight:600}
 .tw{overflow:auto;max-height:480px;border:1px solid var(--line);border-radius:6px}
 table{border-collapse:collapse;width:100%;font-size:13px}
 th,td{padding:6px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -52,14 +54,36 @@ td.wrap{white-space:normal;min-width:260px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}
 svg text{fill:var(--mut);font-size:10px}
 .hide{display:none}
-.cta{border-color:var(--acc)}.cta h2{margin-bottom:6px}.cta a.btn{display:inline-block;margin-top:10px;background:var(--acc);color:var(--acc-ink);text-decoration:none;font-weight:600;border-radius:6px;padding:9px 16px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+section{animation:fadeUp .45s ease both}.kpi{animation:fadeUp .5s ease both}.kpi:nth-child(2){animation-delay:.06s}.kpi:nth-child(3){animation-delay:.12s}.kpi:nth-child(4){animation-delay:.18s}.kpi:nth-child(5){animation-delay:.24s}
+button.pri:hover,.cta a.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}button.pri,.cta a.btn{transition:all .15s}
+.chart-rect{transform-box:fill-box;transform-origin:bottom;animation:grow .6s ease both}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.hero{background:linear-gradient(120deg,#0E1528 0%,#1B2A4A 72%);color:#fff;border-bottom:4px solid var(--or)}
+.hero-in{max-width:1080px;margin:0 auto;padding:26px 16px;display:flex;gap:28px;align-items:center;justify-content:space-between}
+.hero h1{font-size:30px;line-height:1.2;margin:16px 0 8px;color:#fff}.hero p{margin:0;color:#c9d3ea;max-width:560px}
+.brand{display:flex;align-items:center;gap:10px;font-size:20px}.brand b{font-weight:800}.brand i{font-style:normal;color:var(--or2);font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 10px}.chips span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:13px}
+.hero .by{font-size:13px;color:#94a3c4}
+.hero-img{width:300px;max-width:38%;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.4);object-fit:cover}
+@media (max-width:700px){.hero-in{flex-direction:column;align-items:flex-start}.hero-img{max-width:100%;width:100%}.hero h1{font-size:24px}}
+.cta{border-color:var(--or);border-left-width:5px}.cta h2{margin-bottom:6px}.cta a.btn{display:inline-block;margin-top:10px;background:var(--or);color:#fff;text-decoration:none;font-weight:600;border-radius:6px;padding:9px 16px}
 footer{color:var(--mut);font-size:13px;text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
+<header class="hero"><div class="hero-in">
+  <div class="hero-txt">
+    <div class="brand"><svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><rect width="44" height="44" aria-hidden="true" rx="14" fill="#1B2A4A"/><g fill="#fff"><rect x="14" y="17" width="4" height="30"/><rect x="21" y="17" width="2" height="30"/><rect x="26" y="17" width="6" height="30"/><rect x="35" y="17" width="2" height="30"/><rect x="40" y="17" width="4" height="30"/></g><circle cx="44" cy="43" r="12.5" fill="#1B2A4A"/><circle cx="44" cy="43" r="10.5" fill="#E55A00"/><path d="M38.5 43.5l4 4 7.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Stanko</b> <i>Inventura</i></span></div>
+    <h1>Raspored cikličke inventure u nekoliko minuta</h1>
+    <p>Učitajte popis artikala, zadajte pravila brojanja i dobijte raspored po danima ili tjednima s ravnomjernim opterećenjem. Podaci ostaju u vašem pregledniku.</p>
+    <div class="chips"><span>A = 6 · B = 2 · C = 1</span><span>Dnevno ili tjedno</span><span>Excel + brojanje na mobitelu</span></div>
+    <p class="by">Besplatni alat · Logiko d.o.o.</p>
+  </div>
+  <img class="hero-img" src="img/stanko.jpg" alt="Stanko Inventura" onerror="this.remove()">
+</div></header>
 <main>
-<h1>Stanko Inventura</h1>
-<p class="sub"><b>Planer cikličke inventure</b> · besplatni alat Logiko d.o.o. Učitajte popis artikala, zadajte pravila brojanja i dobijte raspored po danima ili tjednima s ravnomjernim opterećenjem. Svi podaci ostaju u vašem pregledniku.</p>
 
 <section>
   <h2><span class="n">1</span>Artikli</h2>
@@ -97,6 +121,11 @@ footer{color:var(--mut);font-size:13px;text-align:center;margin-top:8px}
     <div><label>Kraj razdoblja</label><input type="date" id="dEnd"></div>
     <div><label>Razina rasporeda</label><select id="gran"><option value="both">Dnevni i tjedni</option><option value="day">Samo dnevni</option><option value="week">Samo tjedni</option></select></div>
   </div>
+  <div class="grid hide" id="wkOpts" style="margin-top:12px">
+    <div><label>Dan brojanja unutar tjedna</label><select id="wkMode"><option value="any">Svejedno koji dan (skladištar odlučuje)</option><option value="fixed">Uvijek isti dan u tjednu</option></select></div>
+    <div class="hide" id="wkDayBox"><label>Koji dan</label><select id="wkDay"><option value="1">Ponedjeljak</option><option value="2">Utorak</option><option value="3">Srijeda</option><option value="4">Četvrtak</option><option value="5">Petak</option><option value="6">Subota</option></select></div>
+  </div>
+  <div class="note hide" id="wkNote"></div>
   <div style="margin-top:12px">
     <label>Radni dani</label>
     <span id="wd"></span>
@@ -199,19 +228,30 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     return { year: y, week: w };
   }
 
-  // opts: {start, end ('YYYY-MM-DD'), workdays:[JS getDay brojevi], skipHolidays, extra:[iso]}
+  // opts: {start, end ('YYYY-MM-DD'), workdays:[JS getDay brojevi], skipHolidays, extra:[iso], fixedDow (neobavezno)}
+  // fixedDow: jedan dan po tjednu (JS getDay); ako je taj dan neradan, uzima se prvi sljedeći radni dan u tjednu, inače prethodni.
   function buildDays(opts) {
     const start = parseDate(opts.start), end = parseDate(opts.end);
     if (!start || !end || end < start) return [];
     const skip = new Set(opts.extra || []);
     if (opts.skipHolidays) for (let y = start.getFullYear(); y <= end.getFullYear(); y++) holidaysHR(y).forEach(x => skip.add(x));
     const wd = new Set(opts.workdays);
+    const fixed = opts.fixedDow !== undefined && opts.fixedDow !== null && opts.fixedDow !== '';
+    if (fixed) wd.add(+opts.fixedDow);
+    const mk = d => { const w = isoWeek(d); return { date: d, iso: iso(d), dow: DAN[d.getDay()], week: w.week, weekYear: w.year, weekKey: w.year + '-W' + pad(w.week) }; };
+    const ok = d => d >= start && d <= end && wd.has(d.getDay()) && !skip.has(iso(d));
     const days = [];
-    for (let d = start; d <= end; d = addDays(d, 1)) {
-      if (!wd.has(d.getDay()) || skip.has(iso(d))) continue;
-      const w = isoWeek(d);
-      days.push({ date: d, iso: iso(d), dow: DAN[d.getDay()], week: w.week, weekYear: w.year, weekKey: w.year + '-W' + pad(w.week) });
+    if (fixed) {
+      const off = (+opts.fixedDow + 6) % 7; // pon=0 … ned=6
+      for (let mon = addDays(start, -((start.getDay() + 6) % 7)); mon <= end; mon = addDays(mon, 7)) {
+        let pick = null;
+        for (let k = off; k < 7 && !pick; k++) { const d = addDays(mon, k); if (ok(d)) pick = d; }
+        for (let k = off - 1; k >= 0 && !pick; k--) { const d = addDays(mon, k); if (ok(d)) pick = d; }
+        if (pick) days.push(mk(pick));
+      }
+      return days;
     }
+    for (let d = start; d <= end; d = addDays(d, 1)) if (ok(d)) days.push(mk(d));
     return days;
   }
 
@@ -354,6 +394,7 @@ const E=Engine;
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>Number(n).toLocaleString('hr');
 const hrDate=d=>String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
+const wl=d=>'T'+String(d.week).padStart(2,'0')+'/'+d.weekYear;
 const serial=d=>Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(1899,11,30))/86400000);
 const dateCell=d=>({t:'n',v:serial(d),z:'dd.mm.yyyy'});
 
@@ -463,29 +504,40 @@ $('tpl').onclick=()=>{
   const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Artikli'); XLSX.writeFile(wb,'predlozak-artikli.xlsx');
 };
 
+// ---------- tjedni način ----------
+function wkUi(){
+  const w=$('gran').value==='week', fx=$('wkMode').value==='fixed';
+  $('wkOpts').classList.toggle('hide',!w); $('wkNote').classList.toggle('hide',!w); $('wkDayBox').classList.toggle('hide',!(w&&fx));
+  $('wkNote').textContent=fx
+    ? 'Svaki se tjedan broji istog dana. Ako je taj dan blagdan ili neradan, uzima se prvi sljedeći radni dan u tjednu (a ako ga nema, prethodni).'
+    : 'Raspored određuje samo tjedan brojanja, označen kao T03/2027 s razdobljem od prvog do zadnjeg radnog dana. Dan unutar tjedna odabire skladištar. Opterećenje se i dalje računa po radnom danu, pa tjedni s blagdanom dobivaju razmjerno manje artikala.';
+}
+$('gran').onchange=wkUi; $('wkMode').onchange=wkUi; wkUi();
+
 // ---------- generiranje ----------
 function params(){
   const extra=[]; $('extra').value.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean).forEach(s=>{const d=E.parseDate(s); if(d)extra.push(E.iso(d))});
   return {start:$('dStart').value,end:$('dEnd').value,workdays:[...document.querySelectorAll('.wdc:checked')].map(x=>+x.value),skipHolidays:$('hol').checked,extra,
-    counts:{A:+$('cA').value,B:+$('cB').value,C:+$('cC').value},gran:$('gran').value};
+    counts:{A:+$('cA').value,B:+$('cB').value,C:+$('cC').value},gran:$('gran').value,wkMode:$('wkMode').value,wkDay:+$('wkDay').value};
 }
 
 $('go').onclick=()=>{
   const p=params();
   if(!(p.counts.A>=1&&p.counts.B>=1&&p.counts.C>=1)){msg('calNote','fail','Broj brojanja mora biti barem 1 za svaki razred.');return}
-  const days=E.buildDays(p);
-  $('calNote').textContent=days.length?`${fmt(days.length)} radnih dana u razdoblju.`:'';
+  p.fixed=p.gran==='week'&&p.wkMode==='fixed'; p.anyDay=p.gran==='week'&&p.wkMode==='any';
+  const days=E.buildDays({...p,fixedDow:p.fixed?p.wkDay:null});
+  $('calNote').textContent=days.length?(p.fixed?`${fmt(days.length)} tjedana, po jedan dan brojanja.`:`${fmt(days.length)} radnih dana u razdoblju.`):'';
   const res=E.schedule(items,days,p.counts);
   const checks=E.validate(items,days,res,p.counts);
   plan={p,days,res,checks,items:items.slice()};
-  render();
+  render(); $('resSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
 
 function periods(){ // agregacija opterećenja po danu ili tjednu
   const {days,res}=plan;
   if(view!=='week') return days.map((d,i)=>({label:hrDate(d.date)+' '+d.dow,...res.load[i]}));
   const m=new Map();
-  days.forEach((d,i)=>{ if(!m.has(d.weekKey)) m.set(d.weekKey,{label:'Tjedan '+d.week+'/'+d.weekYear,A:0,B:0,C:0,total:0,from:d.date,to:d.date,key:d.weekKey});
+  days.forEach((d,i)=>{ if(!m.has(d.weekKey)) m.set(d.weekKey,{label:wl(d),A:0,B:0,C:0,total:0,from:d.date,to:d.date,key:d.weekKey});
     const w=m.get(d.weekKey); w.to=d.date; ['A','B','C','total'].forEach(k=>w[k]+=res.load[i][k]); });
   return [...m.values()];
 }
@@ -496,8 +548,9 @@ function render(){
   $('checks').innerHTML=checks.map(c=>`<div class="check ${c.status}"><span class="ic">${c.status==='ok'?'✓':c.status==='warn'?'!':'✕'}</span><div><b>${esc(c.label)}</b>${esc(c.detail)}</div></div>`).join('');
   if(!days.length){$('kpis').innerHTML='';$('chart').innerHTML='';$('tbl').innerHTML='';$('tabs').innerHTML='';return}
   const tot=res.load.map(l=>l.total);
-  $('kpis').innerHTML=[['Artikala',fmt(items.length)],['Brojanja godišnje',fmt(res.N)],['Radnih dana',fmt(days.length)],['Prosjek/dan',(res.N/days.length).toFixed(1).replace('.',',')],['Min–max/dan',Math.min(...tot)+'–'+Math.max(...tot)]]
-    .map(([a,b])=>`<div class="kpi"><span>${a}</span><b>${b}</b></div>`).join('');
+  $('kpis').innerHTML=[['Artikala',fmt(items.length),items.length],['Brojanja godišnje',fmt(res.N),res.N],[p.fixed?'Dana brojanja':'Radnih dana',fmt(days.length),days.length],[p.fixed?'Prosjek/tjedan':'Prosjek/dan',(res.N/days.length).toFixed(1).replace('.',','),null],[p.fixed?'Min–max/tjedan':'Min–max/dan',Math.min(...tot)+'–'+Math.max(...tot),null]]
+    .map(([a,b,n])=>`<div class="kpi"><span>${a}</span><b${n!==null?` data-n="${n}"`:''}>${b}</b></div>`).join('');
+  document.querySelectorAll('.kpi b[data-n]').forEach(el=>{const to=+el.dataset.n,t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/700);el.textContent=fmt(Math.round(to*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)});
   const tabs=[]; if(p.gran!=='week')tabs.push(['day','Dnevni raspored']); if(p.gran!=='day')tabs.push(['week','Tjedni raspored']); tabs.push(['item','Po artiklu']);
   if(!tabs.some(t=>t[0]===view)) view=tabs[0][0];
   $('tabs').innerHTML=tabs.map(([k,l])=>`<button data-v="${k}" class="${k===view?'on':''}">${l}</button>`).join('');
@@ -509,26 +562,26 @@ function chart(){
   const per=periods(), W=1000, H=190, L=34, B=16, n=per.length, bw=(W-L)/n;
   const mx=Math.max(...per.map(x=>x.total))||1;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="none" style="height:190px"><text x="0" y="10">${mx}</text><text x="0" y="${H-B}">0</text><line x1="${L}" x2="${W}" y1="${H-B}" y2="${H-B}" stroke="currentColor" opacity=".2"/>`;
-  per.forEach((x,i)=>{ let y=H-B; [['A','var(--A)'],['B','var(--B)'],['C','var(--C)']].forEach(([k,c])=>{const h=x[k]/mx*(H-B-14); y-=h; if(h>0)s+=`<rect x="${(L+i*bw).toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(bw-1,.5).toFixed(1)}" height="${h.toFixed(1)}" fill="${c}"/>`});
+  per.forEach((x,i)=>{ let y=H-B; [['A','var(--A)'],['B','var(--B)'],['C','var(--C)']].forEach(([k,c])=>{const h=x[k]/mx*(H-B-14); y-=h; if(h>0)s+=`<rect class="chart-rect" style="animation-delay:${Math.min(i*3,500)}ms" x="${(L+i*bw).toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(bw-1,.5).toFixed(1)}" height="${h.toFixed(1)}" fill="${c}"/>`});
     s+=`<rect x="${(L+i*bw).toFixed(1)}" y="0" width="${bw.toFixed(1)}" height="${H-B}" fill="transparent"><title>${esc(x.label)}: ${x.total} (A ${x.A}, B ${x.B}, C ${x.C})</title></rect>`; });
   $('chart').innerHTML=s+'</svg>';
   $('chartCap').textContent=view==='week'?'Opterećenje po tjednu (tjedni s blagdanima imaju manje radnih dana)':'Opterećenje po danu';
 }
 
 function tableData(){
-  const {res,days}=plan;
+  const {res,days,p}=plan;
   if(view==='item'){
     const head=['Šifra','Naziv','Klasa','Br. brojanja','Datumi brojanja'];
     return {head,rows:res.itemDays.map((a,i)=>[plan.items[i].sifra,plan.items[i].naziv,`<span class="tag ${plan.items[i].klasa}">${plan.items[i].klasa}</span>`,res.need[i],a.map(d=>hrDate(days[d].date)).join(' · ')]),cls:{4:'wrap'},raw:{2:1}};
   }
   if(view==='week'){
-    const head=['Tjedan','Razdoblje','Šifra','Naziv','Klasa','Brojanje','Predloženi dan'];
+    const head=['Tjedan','Razdoblje','Šifra','Naziv','Klasa','Brojanje',...(p.anyDay?[]:['Dan brojanja'])];
     const rows=[...res.rows].sort((a,b)=>a.day.weekKey<b.day.weekKey?-1:a.day.weekKey>b.day.weekKey?1:a.dayIdx-b.dayIdx);
     const wr={}; days.forEach(d=>{const w=wr[d.weekKey]=wr[d.weekKey]||{a:d.date,b:d.date}; w.b=d.date});
-    return {head,rows:rows.map(r=>[r.day.week+'/'+r.day.weekYear,hrDate(wr[r.day.weekKey].a)+' – '+hrDate(wr[r.day.weekKey].b),r.item.sifra,r.item.naziv,`<span class="tag ${r.item.klasa}">${r.item.klasa}</span>`,r.nth+'/'+r.of,hrDate(r.day.date)+' '+r.day.dow]),raw:{4:1}};
+    return {head,rows:rows.map(r=>[wl(r.day),hrDate(wr[r.day.weekKey].a)+' – '+hrDate(wr[r.day.weekKey].b),r.item.sifra,r.item.naziv,`<span class="tag ${r.item.klasa}">${r.item.klasa}</span>`,r.nth+'/'+r.of,...(p.anyDay?[]:[hrDate(r.day.date)+' '+r.day.dow])]),raw:{4:1}};
   }
   const head=['Datum','Dan','Tjedan','Šifra','Naziv','Klasa','Brojanje'];
-  return {head,rows:res.rows.map(r=>[hrDate(r.day.date),r.day.dow,r.day.week,r.item.sifra,r.item.naziv,`<span class="tag ${r.item.klasa}">${r.item.klasa}</span>`,r.nth+'/'+r.of]),raw:{5:1}};
+  return {head,rows:res.rows.map(r=>[hrDate(r.day.date),r.day.dow,wl(r.day),r.item.sifra,r.item.naziv,`<span class="tag ${r.item.klasa}">${r.item.klasa}</span>`,r.nth+'/'+r.of]),raw:{5:1}};
 }
 
 function table(){
@@ -556,7 +609,8 @@ $('xlsx').onclick=()=>{
   const tot=res.load.map(l=>l.total);
   const sum=[['Stanko Inventura – planer cikličke inventure'],['Izradio: Stanko Inventura · Logiko d.o.o. · logiko.hr'],[],
     ['Razdoblje',hrDate(days[0].date)+' – '+hrDate(days[days.length-1].date)],
-    ['Radnih dana',days.length],
+    [p.fixed?'Dana brojanja (jedan po tjednu)':'Radnih dana',days.length],
+    ['Raspored',p.gran==='day'?'dnevni':p.gran==='both'?'dnevni i tjedni':(p.fixed?'tjedni, uvijek isti dan':'tjedni, dan odlučuje skladištar')],
     ['Artikala ukupno',its.length],['  razred A',cnt.A],['  razred B',cnt.B],['  razred C',cnt.C],
     ['Brojanja godišnje – A / B / C',p.counts.A+' / '+p.counts.B+' / '+p.counts.C],
     ['Ukupno brojanja',res.N],
@@ -572,15 +626,16 @@ $('xlsx').onclick=()=>{
   const xh=xc.map(c=>c[0]), xw=xc.map(c=>c[2]), xv=i=>xc.map(c=>c[1](i));
   if(p.gran!=='week'){
     const rows=[['Datum','Dan','Tjedan','Šifra','Naziv','Klasa','Brojanje',...xh,'Prebrojano','Napomena']];
-    res.rows.forEach(r=>rows.push([dateCell(r.day.date),r.day.dow,r.day.week,r.item.sifra,r.item.naziv,r.item.klasa,r.nth+'/'+r.of,...xv(r.item),...blank]));
+    res.rows.forEach(r=>rows.push([dateCell(r.day.date),r.day.dow,wl(r.day),r.item.sifra,r.item.naziv,r.item.klasa,r.nth+'/'+r.of,...xv(r.item),...blank]));
     wb.SheetNames.push('Dnevni raspored'); wb.Sheets['Dnevni raspored']=sheet(rows,[12,6,8,16,40,7,10,...xw,12,28],true,true);
   }
   if(p.gran!=='day'){
     const wr={}; days.forEach(d=>{const w=wr[d.weekKey]=wr[d.weekKey]||{a:d.date,b:d.date}; w.b=d.date});
-    const rows=[['Tjedan','Od','Do','Šifra','Naziv','Klasa','Brojanje','Predloženi dan',...xh,'Prebrojano','Napomena']];
+    const dayCol=!p.anyDay;
+    const rows=[['Tjedan','Od','Do','Šifra','Naziv','Klasa','Brojanje',...(dayCol?['Predloženi dan']:[]),...xh,'Prebrojano','Napomena']];
     [...res.rows].sort((a,b)=>a.day.weekKey<b.day.weekKey?-1:a.day.weekKey>b.day.weekKey?1:a.dayIdx-b.dayIdx)
-      .forEach(r=>rows.push([r.day.week+'/'+r.day.weekYear,dateCell(wr[r.day.weekKey].a),dateCell(wr[r.day.weekKey].b),r.item.sifra,r.item.naziv,r.item.klasa,r.nth+'/'+r.of,dateCell(r.day.date),...xv(r.item),...blank]));
-    wb.SheetNames.push('Tjedni raspored'); wb.Sheets['Tjedni raspored']=sheet(rows,[10,12,12,16,40,7,10,14,...xw,12,28],true,true);
+      .forEach(r=>rows.push([wl(r.day),dateCell(wr[r.day.weekKey].a),dateCell(wr[r.day.weekKey].b),r.item.sifra,r.item.naziv,r.item.klasa,r.nth+'/'+r.of,...(dayCol?[dateCell(r.day.date)]:[]),...xv(r.item),...blank]));
+    wb.SheetNames.push('Tjedni raspored'); wb.Sheets['Tjedni raspored']=sheet(rows,[10,12,12,16,40,7,10,...(dayCol?[16]:[]),...xw,12,28],true,true);
   }
   // opterećenje
   const view0=view;
