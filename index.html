@@ -31,7 +31,14 @@ a{color:var(--or)}
 .hero-vis{flex:none;width:430px;position:relative}
 .hero-vis img.shot{width:100%;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);animation:float 6s ease-in-out infinite}
 .hero-vis img.ph{position:absolute;right:-26px;bottom:-44px;width:150px;border-radius:18px;box-shadow:0 14px 36px rgba(0,0,0,.55);border:3px solid #1B2A4A;animation:float 6s ease-in-out -2s infinite}
-.hero-vis img.stanko{display:block;width:100%;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.5);margin-bottom:16px}
+.hero-vis img.stanko{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.18)}
+.hero-vis.has-photo .shot{display:none}
+.float{display:none;position:absolute;background:rgba(255,255,255,.97);color:#1B2A4A;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.3;box-shadow:0 12px 30px rgba(0,0,0,.35);border-left:4px solid #E55A00}
+.float b{font-size:22px;display:block}.float span{display:block;font-size:12px;color:#667780;margin-top:2px}.float i{font-style:normal;color:#1b7f4b;font-weight:800;margin-right:4px}
+.has-photo .float{display:block}
+.f1{left:-34px;bottom:46px;animation:float 5s ease-in-out infinite}.f2{right:18px;top:20px;animation:float 5s ease-in-out -1.5s infinite}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}.rv.in{opacity:1;transform:none}
+@media (max-width:900px){.f1{left:8px}}
 @keyframes float{50%{transform:translateY(-8px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .hero-in>*{animation:fadeUp .6s ease both}.hero-vis{animation-delay:.15s}
@@ -78,9 +85,11 @@ footer{padding:30px 0 50px;color:var(--mut);font-size:14px;text-align:center}
       <div class="btns"><a class="btn pri" href="ciklicka-inventura.html">Otvori planer</a><a class="btn sec" href="brojanje.html">Brojanje na mobitelu</a></div>
       <div class="chips"><span>A = 6 · B = 2 · C = 1</span><span>Dnevno ili tjedno</span><span>Skeniranje bar koda</span><span>Podaci ostaju u vašem pregledniku</span></div>
     </div>
-    <div class="hero-vis">
-      <img class="stanko" src="img/stanko.jpg" alt="Stanko Inventura" onerror="this.remove()">
+    <div class="hero-vis" id="vis">
+      <img class="stanko" src="img/stanko.jpg" alt="Stanko Inventura: kontrolno brojanje u skladištu" onload="document.getElementById('vis').classList.add('has-photo')" onerror="this.remove()">
       <img class="shot" src="upute/04-planer-rezultat.jpg" alt="Planer: rezultat i validacija">
+      <div class="float f1"><b data-n="2854">2.854</b> brojanja raspoređeno<span>demo popis: 1.808 artikala, 253 dana</span></div>
+      <div class="float f2"><i>✓</i> Validacija u redu</div>
       <img class="ph" src="upute/08-brojanje-upis.jpg" alt="Aplikacija za brojanje na mobitelu">
     </div>
   </div>
@@ -134,5 +143,15 @@ footer{padding:30px 0 50px;color:var(--mut);font-size:14px;text-align:center}
 </div></section>
 
 <footer><div class="wrap">Stanko Inventura · Logiko d.o.o., Zagreb · <a href="https://logiko.hr" target="_blank" rel="noopener">logiko.hr</a></div></footer>
+<script>
+(function(){
+  const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.querySelectorAll('.step,.tool,.f,.cta').forEach((el,i)=>{el.classList.add('rv');el.style.transitionDelay=(i%3)*80+'ms'});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>rm?el.classList.add('in'):io.observe(el));
+  const b=document.querySelector('.float b[data-n]');
+  if(b&&!rm){const to=+b.dataset.n,t0=performance.now()+600;const f=t=>{const k=Math.max(0,Math.min(1,(t-t0)/1200));b.textContent=Math.round(to*(1-Math.pow(1-k,3))).toLocaleString('hr');if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+})();
+</script>
 </body>
 </html>
