@@ -104,7 +104,7 @@ a{color:var(--or)}
 <p>Da, otvara se u Safariju i radi kao i na Androidu: popis, upis količine, izvoz. Za rad kao prava aplikacija u Safariju odaberite <b>Podijeli → Dodaj na početni zaslon</b>. To je važno i zbog podataka: Safari može obrisati spremljene podatke stranice koju dulje ne otvarate, a aplikacija dodana na početni zaslon je tome manje izložena. Skeniranje kamerom na iPhoneu koristi drugu metodu prepoznavanja nego na Androidu i novije je; ako vam ne radi, aplikacija ostaje potpuno upotrebljiva s popisa.</p>
 
 <h3>Za koliko artikala mogu učitati plan na početku godine?</h3>
-<p><b>Planer</b> na računalu raspoređuje i desetke tisuća artikala (raspoređivanje je testirano na 50.000 artikala). <b>Aplikacija za brojanje</b> sprema godišnji plan u memoriju mobitela, a preglednik tome daje oko 5 MB. U praksi: oko 3.000 artikala zauzima približno 0,8 MB, a 10.000 artikala približno 2,7 MB. Sigurno je do otprilike <b>15.000 artikala</b> u jednom planu. Za veća skladišta plan podijelite po skladištu ili skupini artikala i učitavajte ih odvojeno.</p>
+<p><b>Planer</b> na računalu raspoređuje i desetke tisuća artikala (raspoređivanje je testirano na 50.000 artikala). <b>Aplikacija za brojanje</b> sprema u memoriju mobitela i plan i sva brojanja, a preglednik tome daje oko 5 MB. Plan zauzima otprilike 0,27 MB na svakih 1.000 artikala, a svako spremljeno brojanje oko 77 bajtova (nešto više ako upisujete napomene). Cjelogodišnje brojanje stoga zauzme još otprilike pola toga. U brojkama, plan i brojanja zajedno na kraju godine: oko 1,2 MB za 3.000 artikala, oko 4 MB za 10.000 artikala. Sigurno je do otprilike <b>10.000 artikala</b>. Za veća skladišta plan podijelite po skladištu ili skupini artikala, ili povremeno izvezite brojanja i obrišite ih iz aplikacije.</p>
 
 <h3>Mogu li brojati bez kamere?</h3>
 <p>Da. Kamera nije potrebna. Kad otvorite popis za taj dan, svaki artikl je na popisu: dodirnete ga, upišete količinu i pritisnete „Spremi i sljedeći" ili strelicama idete kroz popis. Možete i upisati šifru ili bar kod u polje na vrhu, ili koristiti ručni čitač koji radi kao tipkovnica.</p>
@@ -120,6 +120,9 @@ a{color:var(--or)}
 
 <h3>Pamte li se brojanja ako ih ne izvezem?</h3>
 <p>Da. Brojanja ostaju spremljena u mobitelu za sve dane, dok ih ne obrišete (izbornik ⋯ → „Obriši plan i sva brojanja") ili dok netko ne očisti podatke preglednika. Izvoz „Svi dani (samo prebrojano)" izvozi sve što je spremljeno, a „Odabrani dan" samo taj dan. Ipak preporučujem <b>izvoz barem jednom tjedno</b> (ili na kraju svakog dana ako ga odmah prenosite u WMS ili ERP), jer su podaci samo na tom jednom uređaju: ako se mobitel izgubi, pokvari ili mu se očisti memorija, brojanja su izgubljena.</p>
+
+<h3>Čiji je to prostor i koliko ga zauzima?</h3>
+<p>Prostor je <b>na vašem mobitelu</b>, u memoriji preglednika za ovu stranicu, kao podaci neke aplikacije. Ne zauzima prostor na našem poslužitelju ni na GitHubu i nitko drugi nema pristup tim podacima. Za uobičajeno skladište (nekoliko tisuća artikala) to je oko jedan megabajt, dakle zanemarivo prema ostatku mobitela. Podaci ostaju dok ih ne obrišete (izbornik ⋯ → „Obriši plan i sva brojanja"), dok ne očistite podatke preglednika ili ne uklonite aplikaciju s početnog zaslona.</p>
 
 <h3>Radi li bez internetske veze?</h3>
 <p>Da. Nakon prvog otvaranja aplikacija i plan rade bez interneta, a veza je potrebna samo ako je prvi put otvarate ili učitavate novu verziju.</p>
