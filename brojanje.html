@@ -66,6 +66,8 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;b
     <p class="mut">Odaberite Excel koji ste izvezli iz Planera cikličke inventure (list „Dnevni raspored" ili „Tjedni raspored"). Plan se učitava jednom i ostaje u ovom uređaju – svaki dan se otvara popis za taj dan.</p>
     <input type="file" id="file" accept=".xlsx,.xls" class="hide">
     <button class="b pri big" id="pick">Odaberi datoteku s planom</button>
+    <button class="b big" id="demoPlan" style="margin-top:10px">Isprobaj s demo popisom (8 artikala)</button>
+    <p class="mut" style="margin:8px 0 0">Demo popis je samo za isprobavanje: 8 izmišljenih artikala s bar kodovima koje možete skenirati s ispisa ili zaslona. Ništa se ne šalje nikamo.</p>
     <div id="impMsg"></div>
   </div>
 
@@ -195,6 +197,15 @@ function toISO(v){
   const s=String(v).trim(); let m=s.match(/^(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/); if(m)return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');
   m=s.match(/^(\d{4})-(\d{2})-(\d{2})/); return m?m[0]:'';
 }
+
+// ---------- demo popis ----------
+$('demoPlan').onclick=()=>{
+  const ean=b=>{let t=0;for(let i=0;i<12;i++)t+=(+b[i])*(i%2?3:1);return b+((10-t%10)%10)};
+  const D=[['Vijak M8 × 40, pocinčani','A'],['Matica M8, pocinčana','A'],['Podloška M8','B'],['Brtva 20 mm','B'],['Ležaj 6204','B'],['Remen klinasti A32','C'],['Filter ulja HF-17','C'],['Rukavice radne, par','C']];
+  const t=todayISO();
+  S.plan=D.map(([n,k],i)=>({d:t,e:'',w:'',s:'DEMO-'+String(i+1).padStart(2,'0'),n,k,i:1,o:k==='A'?6:k==='B'?2:1,bar:ean('38590000000'+(i+1))}));
+  S.file='Demo popis'; S.counts={}; S.extras=[]; S.date=''; save(); init(); toast('Učitan demo popis');
+};
 
 // ---------- početni zaslon ----------
 const short=iso=>iso.slice(8,10)+'.'+iso.slice(5,7)+'.';
