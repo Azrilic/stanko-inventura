@@ -25,6 +25,30 @@ figure{margin:14px 0 6px}figure img{width:100%;border:1px solid var(--line);bord
 figure.phone{max-width:300px}figcaption{font-size:13px;color:var(--mut);margin-top:6px}
 .tip{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--or);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:15px}
 .tip b{color:var(--ink)}
+.xl{border:1px solid #c9ced6;border-radius:8px;overflow:hidden;margin:14px 0 6px;background:#fff;box-shadow:0 1px 3px rgba(14,21,40,.08)}
+.xl .bar{background:#217346;color:#fff;font:600 13px/1 system-ui,sans-serif;padding:8px 12px;display:flex;gap:14px;align-items:center}
+.xl .bar span{opacity:.85;font-weight:400}
+.xl .tabs{display:flex;gap:2px;background:#e9ecef;padding:6px 8px 0;font:13px system-ui,sans-serif}
+.xl .tabs b{background:#fff;padding:5px 14px;border-radius:5px 5px 0 0;border:1px solid #c9ced6;border-bottom:0;color:#217346}
+.xl .tabs i{font-style:normal;padding:5px 14px;color:#6b7280}
+.xl .sc{overflow-x:auto}
+.xl table{border-collapse:collapse;width:100%;min-width:640px;font:13px system-ui,sans-serif;color:#111}
+.xl th,.xl td{border:1px solid #d5d9e0;padding:6px 8px;text-align:left;vertical-align:middle;height:30px}
+.xl .cl th{background:#f1f3f5;color:#6b7280;font-weight:500;text-align:center;font-size:12px;height:22px}
+.xl .rn{background:#f1f3f5;color:#6b7280;text-align:center;width:34px;font-size:12px}
+.xl td.h{color:#fff;font-weight:700;position:relative;padding-right:30px}
+.xl td.h .b{position:absolute;top:50%;right:6px;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:#FFE680;color:#5c4a00;font:700 11px/20px system-ui;text-align:center}
+.xl td.h::after{content:"";position:absolute;top:0;right:0;border-top:8px solid #c0392b;border-left:8px solid transparent}
+.xl .empty{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f1f3f5 6px,#f1f3f5 12px);color:#9aa3af;font-style:italic;text-align:center}
+.xl .tx{mso-number-format:"@";font-variant-numeric:tabular-nums}
+.xl .num{text-align:right}
+.xl .ok{background:#e8f5ec}
+.xn{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0 16px}
+.xn div{background:#FFF8C5;border:1px solid #E6D77A;border-radius:4px;padding:9px 12px 10px;font-size:13.5px;box-shadow:2px 2px 0 rgba(0,0,0,.06);line-height:1.45}
+.xn b.t{display:block;margin-bottom:3px;color:#5c4a00}
+.xn .n1{display:inline-block;width:18px;height:18px;border-radius:50%;background:#FFE680;border:1px solid #d4b800;color:#5c4a00;font:700 11px/16px system-ui;text-align:center;margin-right:6px}
+.xn em{font-style:normal;font-weight:700;color:#a63d00}
+
 table.fmt{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}table.fmt th,table.fmt td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}table.fmt th{background:var(--card);color:var(--ink)}
 .pair{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));align-items:start}
 code{background:rgba(127,127,127,.15);padding:1px 6px;border-radius:4px;font-size:.92em}
@@ -55,7 +79,14 @@ a{color:var(--or)}
 <div class="tip"><b>Savjet:</b> za skeniranje na mobitelu popis treba imati stupac s <b>bar kodom</b>. Bez njega artikle birate s popisa.</div>
 <h3>Format podataka: kako izbjeći greške</h3>
 <p>Najlakše je krenuti od <a href="demo/predlozak-popis-artikala.xlsx" download>Excel predloška</a>. Ako svoju datoteku pripremate sami, provjerite sljedeće.</p>
-<table class="fmt">
+<p class="mut">Tako izgleda predložak u Excelu. U stvarnoj datoteci svako zaglavlje ima <b>bilješku</b> (crveni trokutić u kutu ćelije; zadržite miš iznad nje). Ovdje su bilješke prikazane ispod tablice, označene istim brojevima.</p>
+<div class="xl"><div class="bar">▦ predlozak-popis-artikala.xlsx <span>— varijanta A: nemam ABC klasu, upisujem vrijednost</span></div><div class="tabs"><b>Artikli</b><i>Primjer</i><i>Upute</i></div><div class="sc"><table><tr class="cl"><th class="rn"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr><tr><td class="rn">1</td><td class="h" style="background:#1B2A4A">Šifra<span class="b">1</span></td><td class="h" style="background:#5A6B8C">Naziv<span class="b">2</span></td><td class="h" style="background:#E55A00">ABC klasa<span class="b">3</span></td><td class="h" style="background:#E55A00">Vrijednost godišnje potrošnje (EUR)<span class="b">4</span></td><td class="h" style="background:#5A6B8C">Bar kod<span class="b">5</span></td></tr><tr><td class="rn">2</td><td class="">ART-001</td><td class="">Vijak M8 x 40</td><td class="empty">ostavite prazno</td><td class="num ok">125000</td><td class="tx">3859000000018</td></tr><tr><td class="rn">3</td><td class="">ART-002</td><td class="">Matica M8</td><td class="empty">ostavite prazno</td><td class="num ok">18400</td><td class="tx">3859000000025</td></tr><tr><td class="rn">4</td><td class="">ART-003</td><td class="">Podloška M8</td><td class="empty">ostavite prazno</td><td class="num ok">950</td><td class="tx">3859000000032</td></tr><tr><td class="rn">5</td><td class="">ART-004</td><td class="">Rukavice radne, par</td><td class="empty">ostavite prazno</td><td class="num ok">120</td><td class="tx"></td></tr><tr><td class="rn">6</td><td colspan="5" style="color:#9aa3af;font-style:italic">… sljedeći artikli, bez praznih redaka …</td></tr></table></div></div><div class="xl"><div class="bar">▦ predlozak-popis-artikala.xlsx <span>— varijanta B: imam ABC klasu, upisujem klasu</span></div><div class="tabs"><b>Artikli</b><i>Primjer</i><i>Upute</i></div><div class="sc"><table><tr class="cl"><th class="rn"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr><tr><td class="rn">1</td><td class="h" style="background:#1B2A4A">Šifra<span class="b">1</span></td><td class="h" style="background:#5A6B8C">Naziv<span class="b">2</span></td><td class="h" style="background:#E55A00">ABC klasa<span class="b">3</span></td><td class="h" style="background:#E55A00">Vrijednost godišnje potrošnje (EUR)<span class="b">4</span></td><td class="h" style="background:#5A6B8C">Bar kod<span class="b">5</span></td></tr><tr><td class="rn">2</td><td class="">ART-001</td><td class="">Vijak M8 x 40</td><td class="ok">A</td><td class="empty">ostavite prazno</td><td class="tx">3859000000018</td></tr><tr><td class="rn">3</td><td class="">ART-002</td><td class="">Matica M8</td><td class="ok">B</td><td class="empty">ostavite prazno</td><td class="tx">3859000000025</td></tr><tr><td class="rn">4</td><td class="">ART-003</td><td class="">Podloška M8</td><td class="ok">C</td><td class="empty">ostavite prazno</td><td class="tx">3859000000032</td></tr><tr><td class="rn">5</td><td class="">ART-004</td><td class="">Rukavice radne, par</td><td class="ok">C</td><td class="empty">ostavite prazno</td><td class="tx"></td></tr><tr><td class="rn">6</td><td colspan="5" style="color:#9aa3af;font-style:italic">… sljedeći artikli, bez praznih redaka …</td></tr></table></div></div><h4 style="margin:14px 0 4px">Bilješke na zaglavljima</h4><div class="xn">
+<div><b class="t"><span class="n1">1</span>Šifra — OBAVEZNO</b>Jedinstvena šifra artikla, ista kao u vašem ERP-u/WMS-u. Duplikati se preskaču.</div>
+<div><b class="t"><span class="n1">2</span>Naziv — nije obavezno</b>Preporučuje se: skladištar ga vidi na popisu za brojanje.</div>
+<div><b class="t"><span class="n1">3</span>ABC klasa — JEDAN OD DVA</b>Popunite ako već imate klasu: <em>A, B ili C</em> za <em>sve</em> artikle. Stupac Vrijednost tada ostavite praznim.</div>
+<div><b class="t"><span class="n1">4</span>Vrijednost — JEDAN OD DVA</b>Popunite ako nemate klasu: godišnja vrijednost potrošnje u EUR za <em>sve</em> artikle. Aplikacija sama izračuna klase (A do 80 %, B do 95 %). Stupac ABC klasa tada ostavite praznim. Ako popunite oba, koristi se vrijednost.</div>
+<div><b class="t"><span class="n1">5</span>Bar kod — nije obavezno</b>Samo za skeniranje kamerom. Samo znamenke, bez razmaka; ćelije su tekstualne da se vodeće nule ne izgube.</div>
+</div><h4 style="margin:14px 0 4px">Pregled formata po stupcima</h4><table class="fmt">
 <tr><th>Stupac</th><th>Obavezan?</th><th>Format</th></tr>
 <tr><td><b>Šifra</b></td><td>Da</td><td>Jedinstvena za svaki redak, ista kao u vašem ERP-u/WMS-u. Redak bez šifre i ponovljena šifra preskaču se (zadržava se prvi redak).</td></tr>
 <tr><td><b>Naziv</b></td><td>Ne, preporučeno</td><td>Običan tekst. Skladištar ga vidi na popisu za brojanje.</td></tr>
