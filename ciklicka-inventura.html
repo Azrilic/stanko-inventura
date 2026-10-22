@@ -498,8 +498,8 @@ $('demo').onclick=()=>{
   setData(rows,'Primjer (generirani podaci)');
 };
 $('tpl').onclick=()=>{
-  const ws=XLSX.utils.aoa_to_sheet([['Šifra','Naziv','Klasa','Vrijednost'],['ART-001','Primjer artikla 1','A',125000],['ART-002','Primjer artikla 2','B',18000],['ART-003','Primjer artikla 3','',950]]);
-  ws['!cols']=[{wch:14},{wch:36},{wch:8},{wch:12}];
+  const ws=XLSX.utils.aoa_to_sheet([['Šifra (obavezno)','Naziv','ABC klasa (ako je imate)','Vrijednost godišnje potrošnje, EUR (ako nemate klase)','Bar kod (za skeniranje)'],['ART-001','Primjer artikla 1','A','','3859000000018'],['ART-002','Primjer artikla 2','',18400,'3859000000025'],['ART-003','Primjer artikla 3','',950,'']]);
+  ws['!cols']=[{wch:18},{wch:38},{wch:18},{wch:30},{wch:22}];
   const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Artikli'); XLSX.writeFile(wb,'predlozak-artikli.xlsx');
 };
 
