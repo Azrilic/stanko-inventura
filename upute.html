@@ -25,6 +25,7 @@ figure{margin:14px 0 6px}figure img{width:100%;border:1px solid var(--line);bord
 figure.phone{max-width:300px}figcaption{font-size:13px;color:var(--mut);margin-top:6px}
 .tip{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--or);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:15px}
 .tip b{color:var(--ink)}
+table.fmt{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}table.fmt th,table.fmt td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}table.fmt th{background:var(--card);color:var(--ink)}
 .pair{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));align-items:start}
 code{background:rgba(127,127,127,.15);padding:1px 6px;border-radius:4px;font-size:.92em}
 footer{max-width:820px;margin:0 auto;padding:0 18px 40px;color:var(--mut);font-size:14px}
@@ -52,6 +53,24 @@ a{color:var(--or)}
 <p>Povucite Excel ili CSV u okvir ili kliknite za odabir datoteke. Alat sam prepozna stupce <b>šifre, naziva, vrijednosti i bar koda</b>; ako se zabuni, ispravite ih izbornicima. Ako popis nema ABC klasu, alat je izračuna iz vrijednosti (Pareto, 80 % i 95 %), a granice možete promijeniti. Popunjava se <b>jedan</b> od ta dva stupca, za sve artikle: ili ABC klasa, ili vrijednost. Ako su popunjena oba, planer koristi vrijednost; ako je stupac popunjen samo za dio redaka, javlja grešku. Za probu postoji gumb „Učitaj primjer". Najlakše je krenuti od <a href="demo/predlozak-popis-artikala.xlsx" download>Excel predloška</a> sa stupcima šifra, naziv, ABC klasa, vrijednost i bar kod, u koji upišete svoje artikle; opis svakog stupca i je li obavezan piše u bilješci na zaglavlju.</p>
 <figure><img src="upute/02-planer-ucitavanje.jpg" alt="Učitani popis i prepoznati stupci"><figcaption>Nakon učitavanja alat javlja koliko je artikala u kojem razredu.</figcaption></figure>
 <div class="tip"><b>Savjet:</b> za skeniranje na mobitelu popis treba imati stupac s <b>bar kodom</b>. Bez njega artikle birate s popisa.</div>
+<h3>Format podataka: kako izbjeći greške</h3>
+<p>Najlakše je krenuti od <a href="demo/predlozak-popis-artikala.xlsx" download>Excel predloška</a>. Ako svoju datoteku pripremate sami, provjerite sljedeće.</p>
+<table class="fmt">
+<tr><th>Stupac</th><th>Obavezan?</th><th>Format</th></tr>
+<tr><td><b>Šifra</b></td><td>Da</td><td>Jedinstvena za svaki redak, ista kao u vašem ERP-u/WMS-u. Redak bez šifre i ponovljena šifra preskaču se (zadržava se prvi redak).</td></tr>
+<tr><td><b>Naziv</b></td><td>Ne, preporučeno</td><td>Običan tekst. Skladištar ga vidi na popisu za brojanje.</td></tr>
+<tr><td><b>ABC klasa</b></td><td>Jedan od dva: klasa ili vrijednost</td><td>Samo slovo <b>A</b>, <b>B</b> ili <b>C</b> (malo slovo je u redu), upisano za <b>sve</b> artikle. Drugi znakovi (npr. „D", „1") odbacuju redak.</td></tr>
+<tr><td><b>Vrijednost godišnje potrošnje (EUR)</b></td><td>Jedan od dva: klasa ili vrijednost</td><td>Broj za <b>sve</b> artikle, bez teksta: 12500 ili 12.500,50 ili 12500.50. Oznake „€" i „EUR" te razmaci se prepoznaju. Prazna ćelija nije dopuštena (upišite 0 ako artikl nema potrošnje).</td></tr>
+<tr><td><b>Bar kod</b></td><td>Ne, samo za skeniranje</td><td>Samo znamenke (EAN-8, EAN-13, GTIN-14), bez razmaka. Ćelije oblikujte kao <b>tekst</b> prije upisa: inače Excel briše vodeće nule ili broj prikaže kao 3,86E+12. Isti bar kod ne bi smio biti upisan kod dva artikla.</td></tr>
+</table>
+<ul>
+<li><b>Zaglavlje u prvom retku</b> i podaci odmah ispod njega. Bez praznih redaka, spojenih ćelija, međuzbrojeva i ukupnog retka na dnu.</li>
+<li>Podaci moraju biti na <b>prvom listu</b> Excela; ostali listovi se ne čitaju.</li>
+<li><b>Datoteke:</b> .xlsx, .xls ili .csv. CSV može imati separator točku-zarez, zarez ili tabulator; kodiranje UTF-8 ili Windows-1250 (hrvatska slova) prepoznaje se samo.</li>
+<li><b>Popunite samo jedan od stupaca ABC klasa i vrijednost.</b> Ako popunite oba, koristi se vrijednost. Ako je stupac popunjen samo za dio artikala, planer javlja grešku i ne generira raspored.</li>
+<li>Preporučeni opseg je do oko 10.000 artikala u godišnjem planu.</li>
+<li>Prije generiranja pročitajte poruku ispod okvira za učitavanje: pokazuje koliko je artikala učitano po klasama te koliko je redaka preskočeno i zašto.</li>
+</ul>
 
 <h3><span class="n">3</span>Zadajte pravila</h3>
 <p>Odaberite razdoblje (zadano je jedna kalendarska godina), radne dane i hoće li se preskočiti blagdani RH. Dodatne neradne dane (kolektivni godišnji, godišnja inventura) upišete u polje ispod. <b>Razina rasporeda</b> određuje što dobivate:</p>
