@@ -459,7 +459,7 @@ function num(v){
 function buildItems(){
   const iS=+$('mSifra').value,iN=+$('mNaziv').value,iK=+$('mKlasa').value,iV=+$('mVrijednost').value,iB=+$('mBar').value;
   dropped={prazno:0,duplikat:0,klasa:0,bezVrijednosti:0};
-  const seen=new Set(); items=[];
+  const seen=new Set(); items=[]; let nV=0;
   rawRows.forEach(r=>{
     const sifra=String(r[iS]??'').trim();
     if(!sifra){dropped.prazno++;return}
@@ -467,15 +467,22 @@ function buildItems(){
     seen.add(sifra);
     let klasa='';
     if(iK>=0){const k=String(r[iK]??'').trim().toUpperCase(); if(k){ if(['A','B','C'].includes(k[0])&&k.length<=2) klasa=k[0]; else {dropped.klasa++;return} }}
+    if(iV>=0&&String(r[iV]??'').trim()!=='')nV++;
     items.push({sifra,naziv:iN>=0?String(r[iN]??'').trim():'',klasa,vrijednost:iV>=0?num(r[iV]):0,bar:iB>=0?String(r[iB]??'').trim():''});
   });
-  const need=items.filter(i=>!i.klasa);
-  const auto=need.length>0;
-  $('abcAuto').classList.toggle('hide',!auto); $('abcNote').classList.toggle('hide',!auto);
-  if(auto){
-    if(iV<0){ items.forEach(i=>{if(!i.klasa){i.klasa='C';i.klasaIzracunata=true}}); dropped.bezVrijednosti=need.length; }
-    else E.classify(items,+$('pA').value,+$('pB').value);
-  }
+  const total=items.length, nK=items.filter(i=>i.klasa).length;
+  const how=' Ispravite datoteku ili u izborniku iznad odaberite „— nema —“ za stupac koji ne koristite.';
+  let problem='';
+  if(!total) problem='Nema nijednog artikla sa šifrom.';
+  else if(nK>0&&nV>0) problem='Popunjeni su i ABC klasa i vrijednost. Popunite <b>samo jedan</b> od ta dva stupca.'+how;
+  else if(nK>0&&nK<total) problem=`ABC klasa nije upisana za ${fmt(total-nK)} od ${fmt(total)} artikala. Upišite je za <b>sve</b> artikle ili koristite vrijednost.`+how;
+  else if(nK===0&&nV===0) problem='Nema ni ABC klase ni vrijednosti. Popunite jedan od ta dva stupca.'+how;
+  else if(nK===0&&nV<total) problem=`Vrijednost nije upisana za ${fmt(total-nV)} od ${fmt(total)} artikala. Upišite je za <b>sve</b> artikle ili koristite ABC klasu.`+how;
+  const auto=nK===0;
+  $('abcAuto').classList.toggle('hide',!auto||!!problem); $('abcNote').classList.toggle('hide',!auto||!!problem);
+  if(problem){ msg('itemMsg','fail',problem); $('go').disabled=true; return; }
+  const need=items;
+  if(auto) E.classify(items,+$('pA').value,+$('pB').value);
   const c={A:0,B:0,C:0}; items.forEach(i=>c[i.klasa]++);
   let t=`Učitano <b>${fmt(items.length)}</b> artikala: A = ${fmt(c.A)}, B = ${fmt(c.B)}, C = ${fmt(c.C)}.`;
   if(auto&&iV>=0) t+=` Klasa je izračunata iz vrijednosti za ${fmt(need.length)} artikala.`;
@@ -498,8 +505,8 @@ $('demo').onclick=()=>{
   setData(rows,'Primjer (generirani podaci)');
 };
 $('tpl').onclick=()=>{
-  const ws=XLSX.utils.aoa_to_sheet([['Šifra (obavezno)','Naziv','ABC klasa (ako je imate)','Vrijednost godišnje potrošnje, EUR (ako nemate klase)','Bar kod (za skeniranje)'],['ART-001','Primjer artikla 1','A','','3859000000018'],['ART-002','Primjer artikla 2','',18400,'3859000000025'],['ART-003','Primjer artikla 3','',950,'']]);
-  ws['!cols']=[{wch:18},{wch:38},{wch:18},{wch:30},{wch:22}];
+  const ws=XLSX.utils.aoa_to_sheet([['Šifra','Naziv','ABC klasa','Vrijednost godišnje potrošnje (EUR)','Bar kod'],['ART-001','Primjer artikla 1','','125000','3859000000018'],['ART-002','Primjer artikla 2','',18400,'3859000000025'],['ART-003','Primjer artikla 3','',950,'']]);
+  ws['!cols']=[{wch:18},{wch:38},{wch:14},{wch:32},{wch:22}];
   const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Artikli'); XLSX.writeFile(wb,'predlozak-artikli.xlsx');
 };
 
