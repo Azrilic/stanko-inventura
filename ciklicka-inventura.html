@@ -470,11 +470,11 @@ function buildItems(){
     if(iV>=0&&String(r[iV]??'').trim()!=='')nV++;
     items.push({sifra,naziv:iN>=0?String(r[iN]??'').trim():'',klasa,vrijednost:iV>=0?num(r[iV]):0,bar:iB>=0?String(r[iB]??'').trim():''});
   });
-  const total=items.length, nK=items.filter(i=>i.klasa).length;
+  const total=items.length; let nK=items.filter(i=>i.klasa).length, bothCols=false;
+  if(nK>0&&nV>0){ items.forEach(i=>{i.klasa=''}); nK=0; bothCols=true; }
   const how=' Ispravite datoteku ili u izborniku iznad odaberite „— nema —“ za stupac koji ne koristite.';
   let problem='';
   if(!total) problem='Nema nijednog artikla sa šifrom.';
-  else if(nK>0&&nV>0) problem='Popunjeni su i ABC klasa i vrijednost. Popunite <b>samo jedan</b> od ta dva stupca.'+how;
   else if(nK>0&&nK<total) problem=`ABC klasa nije upisana za ${fmt(total-nK)} od ${fmt(total)} artikala. Upišite je za <b>sve</b> artikle ili koristite vrijednost.`+how;
   else if(nK===0&&nV===0) problem='Nema ni ABC klase ni vrijednosti. Popunite jedan od ta dva stupca.'+how;
   else if(nK===0&&nV<total) problem=`Vrijednost nije upisana za ${fmt(total-nV)} od ${fmt(total)} artikala. Upišite je za <b>sve</b> artikle ili koristite ABC klasu.`+how;
@@ -486,6 +486,7 @@ function buildItems(){
   const c={A:0,B:0,C:0}; items.forEach(i=>c[i.klasa]++);
   let t=`Učitano <b>${fmt(items.length)}</b> artikala: A = ${fmt(c.A)}, B = ${fmt(c.B)}, C = ${fmt(c.C)}.`;
   if(auto&&iV>=0) t+=` Klasa je izračunata iz vrijednosti za ${fmt(need.length)} artikala.`;
+  if(bothCols) t+=' Popunjeni su i ABC klasa i vrijednost, pa je za izračun korištena <b>vrijednost</b>.';
   const warn=[];
   if(dropped.bezVrijednosti) warn.push(`${fmt(dropped.bezVrijednosti)} artikala nema klasu ni vrijednost – svrstani u C.`);
   if(dropped.prazno) warn.push(`${fmt(dropped.prazno)} redaka bez šifre preskočeno.`);
