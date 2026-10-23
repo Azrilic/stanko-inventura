@@ -25,6 +25,9 @@ figure{margin:14px 0 6px}figure img{width:100%;border:1px solid var(--line);bord
 figure.phone{max-width:300px}figcaption{font-size:13px;color:var(--mut);margin-top:6px}
 .tip{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--or);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:15px}
 .tip b{color:var(--ink)}
+.inst{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.inst .qrb{text-align:center;font-size:13px;color:var(--mut,#667780);flex:0 0 190px}.inst .qrb img{display:block;margin:0 auto 6px;border-radius:8px;border:1px solid var(--line);background:#fff}.inst .qrb a{display:block;word-break:break-all;font-size:11.5px;margin-top:4px}
+.inst .steps{flex:1;min-width:240px}.inst .steps p{margin:0 0 8px}.inst .steps ul{margin:0 0 8px;padding-left:20px}
 .xl{border:1px solid #c9ced6;border-radius:8px;overflow:hidden;margin:14px 0 6px;background:#fff;box-shadow:0 1px 3px rgba(14,21,40,.08)}
 .xl .bar{background:#217346;color:#fff;font:600 13px/1 system-ui,sans-serif;padding:8px 12px;display:flex;gap:14px;align-items:center}
 .xl .bar span{opacity:.85;font-weight:400}
@@ -73,6 +76,22 @@ a{color:var(--or)}
 
 <p>Stanko Inventura sastoji se od dva dijela. <b>Planer</b> radite na računalu, jednom godišnje: učitate popis artikala, a on napravi raspored brojanja za cijelu godinu. <b>Aplikaciju za brojanje</b> koristi skladištar na mobitelu, svaki dan: otvori popis za taj dan, skenira ili upiše artikl, upiše pronađenu količinu, a na kraju izveze rezultat.</p>
 <p>Svi se podaci obrađuju u vašem pregledniku. Popis artikala ne napušta vaše računalo ni mobitel i nigdje se ne sprema.</p>
+
+<h2 id="instalacija">Instalacija na mobitel</h2>
+<p>Aplikacija za brojanje je web stranica koja se dodaje na početni zaslon i potom radi kao prava aplikacija, i bez interneta. Ne treba ništa skidati iz trgovine (Google Play ni App Store).</p>
+<div class="inst">
+  <div class="qrb"><img src="img/qr-brojanje.png" alt="QR kod za aplikaciju za brojanje" width="170" height="170"><div>Skenirajte kamerom telefona</div><a href="brojanje.html">logiko-scm.github.io/stanko-inventura/brojanje.html</a></div>
+  <div class="steps">
+    <p><b>1. Otvorite aplikaciju na mobitelu:</b> skenirajte QR kod, ili otvorite gornju adresu. Na Androidu koristite Chrome, a na iPhoneu <b>Safari</b> (ne Chrome).</p>
+    <p><b>2. Dodajte je na početni zaslon:</b></p>
+    <ul>
+      <li><b>Android (Chrome):</b> izbornik s tri točkice (gore desno), pa „Instaliraj aplikaciju" ili „Dodaj na početni zaslon", pa „Instaliraj".</li>
+      <li><b>iPhone (Safari):</b> gumb „Podijeli" (kvadrat sa strelicom prema gore, dolje u sredini), pa „Dodaj na početni zaslon", pa „Dodaj".</li>
+    </ul>
+    <p><b>3. Pokrenite ikonu „Stanko"</b> s početnog zaslona. Prvi put učitajte plan (Excel iz planera), kamera će tražiti dopuštenje.</p>
+  </div>
+</div>
+<div class="tip"><b>Savjet za iPhone:</b> najprije dodajte ikonu na početni zaslon, a tek onda učitajte plan, jer je aplikacija s ikone zasebna od otvorene stranice u Safariju i može imati vlastitu, praznu pohranu. Instalacija ne traži račun ni prijavu, a podaci ostaju samo na tom mobitelu.</div>
 
 <h2>Dio 1: Planer (na računalu)</h2>
 
